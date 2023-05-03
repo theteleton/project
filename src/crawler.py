@@ -6,6 +6,9 @@ from selenium.webdriver.chrome.options import Options
 import requests
 import pandas as pd
 
+import os
+
+os.chmod('./chromedriver', 755) 
 # Replace with your own values
 client_id = 'e26babac-f1b9-44b5-af67-a28887ae2978' 
 username = 'pbi@in516ht.com'
@@ -41,25 +44,35 @@ else:
 # Replace with your own values
 #print(access_token)
 # Set up the webdriver
+print(access_token)
+report_id = '745405bd-c702-481b-9e5d-bb3dfc1cc93d'
+workspace_id = '418fc146-6f6a-4b64-afc8-d8856a0d5b6f'
+tenantID = '5630a8c5-5df5-4148-be98-8b60dd9abfd5'
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+#chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("user-agent=fri-ids-HW1-student1")
+chrome_options.add_argument("user-agent=fri-project-student1")
 driver = webdriver.Chrome("./chromedriver", options=chrome_options)
-
-driver.get('https://app.powerbi.com/')
+driver.get(f'https://login.microsoftonline.com/{tenantID}/oauth2/v2.0/token')
+#driver.get(f'https://app.powerbi.com/groups/{workspace_id}/reports/{report_id}&accessToken={access_token}/ReportSection')
 wait = WebDriverWait(driver, 10)
 
 # Log in to Power BI using access token
-access_token = '<your_access_token>'
-driver.execute_script(f"localStorage.setItem('powerbiAccessToken','{access_token}');")
-driver.refresh()
+#driver.execute_script(f"localStorage.setItem('powerbiAccessToken','{access_token}');")
+#driver.refresh()
 
-# Navigate to the report and select the visual
-report_link = wait.until(EC.presence_of_element_located((By.LINK_TEXT, 'Pair1_Report1')))
-report_link.click()
-visual_title = wait.until(EC.presence_of_element_located((By.XPATH, f'//div[text()="SY VS PY"]')))
+# Wait for the report to load
+driver.implicitly_wait(10)
+
+# Select the visual
+visual_title = driver.find_element_by_xpath('//div[text()="<your_visual_name>"]')
 visual_title.click()
+
+# Export the data
+export_menu = driver.find_element_by_css_selector('button[data-icon-name="ExportData"]')
+export_menu.click()
+csv_button = driver.find_element_by_xpath('//button[text()="CSV"]')
+csv_button.click()
 
 # Export the data
 export_menu = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'button[data-icon-name="ExportData"]')))
