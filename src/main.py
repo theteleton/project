@@ -1,4 +1,5 @@
 from crawler import Crawler
+from comparator import PowerBIComparator
 import os
 import argparse
 
