@@ -5,6 +5,7 @@ import argparse
 
 
 if __name__ == "__main__":
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--email')
     parser.add_argument('--password')
@@ -28,7 +29,10 @@ if __name__ == "__main__":
     crawl = Crawler(username=email, password=password, group_id=group_id, report_id=report_id1)
 
     crawl.crawl()
+    """
 
+    comparator = PowerBIComparator("./data/Pair1_1", "./data/Pair1_2")
+    comparator.input_tables()
     
 
 
