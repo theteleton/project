@@ -158,6 +158,7 @@ class PowerBIComparator:
 
     def input_tables(self):
 
+        sheets = {}
 
         df1 = pd.read_csv(self.path1 + "/Sales quantity.csv")
         df2 = pd.read_csv(self.path2 + "/Sales quantity.csv")
@@ -169,9 +170,71 @@ class PowerBIComparator:
         for i in range(len(df2)):
             new_list2.append(str(df2["Month short"][i] + str(df2["Date week"][i])))
         df2["Week"] = new_list2
-        return self.compare(df1, df2, "Week", key_id=["Month short", "Date week"], new_feature=1)
-        
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Week", key_id=["Month short", "Date week"], new_feature=1)
+        sheets["Sales quantity"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales quantity veggie
+        df1 = pd.read_csv(self.path1 + "/Sales quantity by veggie.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales quantity by veggie.csv")
 
-    def create_results(self, df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np):
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Veggie", key_id=["Veggie"], new_feature=0)
+
+        sheets["Sales quantity by veggie"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales quantity customer
+        df1 = pd.read_csv(self.path1 + "/Sales quantity by customer.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales quantity by customer.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Customer", key_id=["Customer"], new_feature=0)
+        sheets["Sales quantity by customer"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales quantity country
+        df1 = pd.read_csv(self.path1 + "/Sales quantity by country.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales quantity by counrty.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
+        sheets["Sales quantity by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales quantity SY VS PY
+        df1 = pd.read_csv(self.path1 + "/SY VS PY.csv")
+        df2 = pd.read_csv(self.path2 + "/SY VS PY.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Date year", key_id=["Date year"], new_feature=0)
+        sheets["SY vs PY Quantity"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        df1 = pd.read_csv(self.path1 + "/Sales value.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales value.csv")
+        new_list1 = []
+        for i in range(len(df1)):
+            new_list1.append(str(df1["Month short"][i] + str(df1["Date week"][i])))
+        df1["Week"] = new_list1
+        new_list2 = []
+        for i in range(len(df2)):
+            new_list2.append(str(df2["Month short"][i] + str(df2["Date week"][i])))
+        df2["Week"] = new_list2
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Week", key_id=["Month short", "Date week"], new_feature=1)
+        sheets["Sales value"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales value veggie
+        df1 = pd.read_csv(self.path1 + "/Sales value by veggie.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales value by veggie.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Veggie", key_id=["Veggie"], new_feature=0)
+        sheets["Sales value by veggie"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales value customer
+        df1 = pd.read_csv(self.path1 + "/Sales value by customer.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales value by customer.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Customer", key_id=["Customer"], new_feature=0)
+        sheets["Sales value by customer"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales value country
+        df1 = pd.read_csv(self.path1 + "/Sales value by country.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales value by counrty.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
+        sheets["Sales value by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+        # Sales value SY VS PY
+        df1 = pd.read_csv(self.path1 + "/SY VS PY1.csv")
+        df2 = pd.read_csv(self.path2 + "/SY VS PY1.csv")
+
+        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Date year", key_id=["Date year"], new_feature=0)
+        sheets["SY vs PY Value"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
+
+
+    def create_results(self, sheets):
         pass
 
