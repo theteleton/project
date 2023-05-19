@@ -33,6 +33,8 @@ if __name__ == "__main__":
 
     comparator = PowerBIComparator("./data/Pair1_1", "./data/Pair1_2")
     comparator.input_tables()
+
+
     
 
 
