@@ -51,6 +51,12 @@ class Crawler:
         driver.find_element_by_id("idSIButton9").click()
         time.sleep(10)
 
+        try:
+            driver.find_element_by_xpath('//*[@id="pvExplorationHost"]/div/div/exploration/div/explore-canvas/div/div[2]/outspace-pane/article/div[1]/button[2]').click()
+            time.sleep(2)
+        except:
+            pass
+
         actions = ActionChains(driver)
         actions.move_by_offset(961, 121).click().perform()
         time.sleep(5)
@@ -175,5 +181,5 @@ class Crawler:
         driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div").click()
         time.sleep(2)
         driver.find_element_by_xpath('//*[@id="mat-dialog-9"]/export-data-dialog/mat-dialog-actions/button[1]').click()
-        time.sleep(5)
+        time.sleep(15)
         driver.quit()

@@ -98,7 +98,7 @@ class PowerBIComparator:
                                 dict_color[x].append('00FF00')
                                 dict_delta[x].append("Same key values")
                             else:
-                                dict_color[x].append('00FF00')
+                                dict_color[x].append('FF0000')
                                 dict_delta[x].append("Different key values")
                             continue
 
