@@ -173,7 +173,7 @@ class PowerBIComparator:
         delta_df = pd.DataFrame(dict_delta, columns=dict_delta.keys())
         delta_df_np = pd.DataFrame(dict_color, columns=dict_color.keys()).to_numpy()
         num_df = pd.DataFrame(dict_num, columns=dict_num.keys())
-        num_df_np = pd.DataFrame(dict_num_col, columns=dict_num_col.keys()).to_numpy()
+        num_df_np = pd.DataFrame(dict_num_col, columns=dict_num_col.keys())
         return df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np
     
     
@@ -333,6 +333,11 @@ class PowerBIComparator:
                         col_ = chr(ord(col_) + 1)
                     row_ += 1
 
+                sheet[f"{start_column}{row_ + 2}"] = "Number of rows"
+                sheet[f"{start_column}{row_ + 4}"] = "Number of columns"
+                sheet[f"{start_column}{row_ + 3}"] = sheets[x][2]
+                sheet[f"{start_column}{row_ + 5}"] = sheets[x][4]
+
                 start_row = 3  
                 start_column = ch
                 col_ = start_column
@@ -347,7 +352,12 @@ class PowerBIComparator:
                         sheet[f'{col_}{row_}'] = cell
                         col_ = chr(ord(col_) + 1)
                     row_ += 1
-                
+
+                sheet[f"{start_column}{row_ + 2}"] = "Number of rows"
+                sheet[f"{start_column}{row_ + 4}"] = "Number of columns"
+                sheet[f"{start_column}{row_ + 3}"] = sheets[x][3]
+                sheet[f"{start_column}{row_ + 5}"] = sheets[x][5]
+
                 start_row = 3  
                 start_column = chr(ord(ch) + len(sheets[x][1].columns) + 3)
                 sheet[f"{start_column}2"] = "Delta between the reports"
@@ -371,6 +381,13 @@ class PowerBIComparator:
                         col_ = chr(ord(col_) + 1)
                     row_ += 1
                     i += 1
+
+                sheet[f"{start_column}{row_ + 2}"] = "Delta Number of rows"
+                sheet[f"{start_column}{row_ + 4}"] = "Delta Number of columns"
+                sheet[f"{start_column}{row_ + 3}"] = sheets[x][8]["Number of rows"][0]
+                sheet[f"{start_column}{row_ + 5}"] = sheets[x][8]["Number of columns"][0]
+                sheet[f"{start_column}{row_ + 3}"].fill = PatternFill(start_color=sheets[x][9]["Number of rows"][0], end_color=sheets[x][9]["Number of rows"][0], fill_type='solid')
+                sheet[f"{start_column}{row_ + 5}"].fill = PatternFill(start_color=sheets[x][9]["Number of columns"][0], end_color=sheets[x][9]["Number of columns"][0], fill_type='solid')
 
                 
 
