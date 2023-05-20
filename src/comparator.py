@@ -252,8 +252,8 @@ class PowerBIComparator:
         df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
         sheets["Sales value by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
         # Sales value SY VS PY
-        df1 = pd.read_csv(self.path1 + "/SY VS PY1.csv")
-        df2 = pd.read_csv(self.path2 + "/SY VS PY1.csv")
+        df1 = pd.read_csv(self.path1 + "/SY VS PY (1).csv")
+        df2 = pd.read_csv(self.path2 + "/SY VS PY (1).csv")
 
         df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Date year", key_id=["Date year"], new_feature=0)
         sheets["SY vs PY Value"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
