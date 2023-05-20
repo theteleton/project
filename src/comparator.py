@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 import math
+import openpyxl
+from openpyxl.styles import PatternFill
+from openpyxl.styles.colors import Color
 class PowerBIComparator:
     def __init__(self, data_path1, data_path2):
         self.path1 = data_path1
@@ -62,24 +65,45 @@ class PowerBIComparator:
 
         df1_new = pd.DataFrame(rows1, columns=df1.columns)
         df2_new = pd.DataFrame(rows2, columns=df2.columns)
+
         if new_feature == 1:
             df1_new = df1_new.drop(df1_new.columns[-1], axis=1)
             df2_new = df2_new.drop(df2_new.columns[-1], axis=1)
 
+        key_id_new = []
+        for x in key_id:
+            df1_new = df1_new.rename(columns={
+                x : f"KEY_ID[{x}]"
+            })
+            df2_new = df2_new.rename(columns={
+                x : f"KEY_ID[{x}]"
+            })
+            key_id_new.append(f"KEY_ID[{x}]")
         dict_delta = {}
         dict_color = {}
         diff_col = 1
         for x in self.unique(df1_new.columns.to_list() + df2_new.columns.to_list()):
-            if x in key_id:
-                continue
-            
             if x in df1_new.columns.to_list() and x in df2_new.columns.to_list():
                 dict_color[x] = []
                 dict_delta[x] = []
-                for i in range(max(len(df1), len(df2))):
-                    if i < min(len(df1), len(df2)):
-                        value1 = df1[x][i]
-                        value2 = df2[x][i]
+                for i in range(max(len(df1_new), len(df2_new))):
+                   
+
+                    if i < min(len(df1_new), len(df2_new)):
+                        if x in key_id_new:
+                            value1 = df1_new[x][i]
+                            value2 = df2_new[x][i]
+
+                            if value1 == value2:
+                                dict_color[x].append('00FF00')
+                                dict_delta[x].append("Same key values")
+                            else:
+                                dict_color[x].append('00FF00')
+                                dict_delta[x].append("Different key values")
+                            continue
+
+                        value1 = df1_new[x][i]
+                        value2 = df2_new[x][i]
                         if not isinstance(value1, str) and not isinstance(value2, str):
                             if math.isnan(value1) or math.isnan(value2):
                                 if math.isnan(value1) and math.isnan(value2):
@@ -121,12 +145,12 @@ class PowerBIComparator:
                             dict_delta[x].append(str(diff))
                     else:
                         dict_color[x].append('FF0000')
-                        dict_delta[x].append("Different rows")
+                        dict_delta[x].append("Different key values")
 
             else:
                 dict_color["diff_column" + "_" + str(diff_col)] = []
                 dict_delta["diff_column" + "_" + str(diff_col)] = []
-                for i in range(max(len(df1), len(df2))):
+                for i in range(max(len(df1_new), len(df2_new))):
                     dict_color["diff_column" + "_" + str(diff_col)].append('FF0000')
                     dict_delta["diff_column" + "_" + str(diff_col)].append("Different columns")
                 dif_col += 1 
@@ -187,7 +211,7 @@ class PowerBIComparator:
         sheets["Sales quantity by customer"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
         # Sales quantity country
         df1 = pd.read_csv(self.path1 + "/Sales quantity by country.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales quantity by counrty.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales quantity by country.csv")
 
         df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
         sheets["Sales quantity by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
@@ -223,7 +247,7 @@ class PowerBIComparator:
         sheets["Sales value by customer"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
         # Sales value country
         df1 = pd.read_csv(self.path1 + "/Sales value by country.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales value by counrty.csv")
+        df2 = pd.read_csv(self.path2 + "/Sales value by country.csv")
 
         df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
         sheets["Sales value by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
@@ -234,7 +258,125 @@ class PowerBIComparator:
         df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Date year", key_id=["Date year"], new_feature=0)
         sheets["SY vs PY Value"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
 
-
+        dict_status = {}
+        dict_status_col = {}
+        dict_status["Visual"] = []
+        dict_status["Status"] = []
+        dict_status_col["Status"] = []
+        for key in sheets.keys():
+            lst = np.unique(np.concatenate([np.unique(sheets[key][7]), np.unique(sheets[key][9])]))
+            if len(lst) == 1 and lst[0] == "00FF00":
+                dict_status["Visual"].append(key)
+                dict_status["Status"].append("Match")
+                dict_status_col["Status"].append("00FF00")
+            else:
+                dict_status["Visual"].append(key)
+                dict_status["Status"].append("Not Match")
+                dict_status_col["Status"].append("FF0000")
+        sheets["Overview"] = [pd.DataFrame(dict_status, columns=dict_status.keys()), pd.DataFrame(dict_status_col, columns=dict_status_col.keys()).to_numpy()]
+        self.create_results(sheets)
     def create_results(self, sheets):
-        pass
+
+        workbook = openpyxl.Workbook()
+        for i, x in enumerate(["Overview", "SY vs PY Quantity", "Sales quantity by country", "Sales quantity by customer", "Sales quantity by veggie", "Sales quantity", "SY vs PY Value", "Sales value by country", "Sales value by customer", "Sales value by veggie", "Sales value"]):
+            sheet = workbook.create_sheet(title=x)
+
+            if x == "Overview":
+                start_row = 2  
+                start_column = 'A'  
+                sheet["A1"] = "Overview"
+
+                col_ = start_column
+                row_ = start_row
+                is_time_col = False
+                i = 0
+                j = 0
+                for val in sheets[x][0].columns:
+                    sheet[f'{col_}{row_}'] = val
+                    col_ = chr(ord(col_) + 1)
+                row_ += 1
+                for idx, row in sheets[x][0].iterrows():
+                    is_time_col = False
+                    j = 0
+                    col_ = start_column
+                    for cell in row:
+                        sheet[f'{col_}{row_}'] = cell
+                        
+                        if is_time_col == True:
+                            sheet[f'{col_}{row_}'].fill = PatternFill(start_color=sheets[x][1][i, j], end_color=sheets[x][1][i, j], fill_type='solid')
+                            j += 1
+                        col_ = chr(ord(col_) + 1)
+                        is_time_col = True
+                    row_ += 1
+                    i += 1
+
+            else:
+                
+                sheet["A1"] = "Comparison of " + x
+                sheet["A2"] = "Report 1"
+                ch = chr(len(sheets[x][0].columns) + 3 + 64)
+
+                sheet[f"{ch}2"] = "Report 2"
+
+                start_row = 3  
+                start_column = 'A'  
+                col_ = start_column
+                row_ = start_row
+                for val in sheets[x][0].columns:
+                    sheet[f'{col_}{row_}'] = val
+                    col_ = chr(ord(col_) + 1)
+                row_ += 1
+                for idx, row in sheets[x][0].iterrows():
+                    col_ = start_column
+                    for cell in row:
+                        sheet[f'{col_}{row_}'] = cell
+                        col_ = chr(ord(col_) + 1)
+                    row_ += 1
+
+                start_row = 3  
+                start_column = ch
+                col_ = start_column
+                row_ = start_row
+                for val in sheets[x][1].columns:
+                    sheet[f'{col_}{row_}'] = val
+                    col_ = chr(ord(col_) + 1)
+                row_ += 1
+                for idx, row in sheets[x][1].iterrows():
+                    col_ = start_column
+                    for cell in row:
+                        sheet[f'{col_}{row_}'] = cell
+                        col_ = chr(ord(col_) + 1)
+                    row_ += 1
+                
+                start_row = 3  
+                start_column = chr(ord(ch) + len(sheets[x][1].columns) + 3)
+                sheet[f"{start_column}2"] = "Delta between the reports"
+
+                col_ = start_column
+                row_ = start_row
+                is_time_col = False
+                i = 0
+                j = 0
+                for val in sheets[x][6].columns:
+                    sheet[f'{col_}{row_}'] = "Delta " + val
+                    col_ = chr(ord(col_) + 1)
+                row_ += 1
+                for idx, row in sheets[x][6].iterrows():
+                    j = 0
+                    col_ = start_column
+                    for cell in row:
+                        sheet[f'{col_}{row_}'] = cell
+                        sheet[f'{col_}{row_}'].fill = PatternFill(start_color=sheets[x][7][i, j], end_color=sheets[x][7][i, j], fill_type='solid')
+                        j += 1
+                        col_ = chr(ord(col_) + 1)
+                    row_ += 1
+                    i += 1
+
+                
+
+        sheet_to_delete = workbook['Sheet']
+
+        # Delete the sheet
+        workbook.remove(sheet_to_delete)
+        workbook.save('./predictions/comparisonReport.xlsx')
 
