@@ -2,13 +2,13 @@ from crawler import Crawler
 from comparator import PowerBIComparator
 import os
 import argparse
-
+from processing import ImageProcessing
 import shutil
 
 
 if __name__ == "__main__":
     
-
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--email')
     parser.add_argument('--password')
@@ -75,8 +75,11 @@ if __name__ == "__main__":
         shutil.move(source_file, destination_file)
     comparator = PowerBIComparator("./data_new/Pair1", "./data_new/Pair2")
     comparator.input_tables()
+"""
 
-
+    obj = ImageProcessing()
+    obj.preprocess("./screenshots/screenshot.png")
+    
     
 # Test reports
 
@@ -84,3 +87,7 @@ if __name__ == "__main__":
 #python src/main.py --email pbi@in516ht.com --password 7rTMTgw#BFBPR*WU --group_id 418fc146-6f6a-4b64-afc8-d8856a0d5b6f --report_id1 5b02eabf-44b8-4766-bec2-924af2a4dab6 --report_id2 3566ecf2-66d1-438c-82cb-d49055839a8b
 #python src/main.py --email pbi@in516ht.com --password 7rTMTgw#BFBPR*WU --group_id 418fc146-6f6a-4b64-afc8-d8856a0d5b6f --report_id1 5e0863d1-424c-4336-a960-9168a5fabb87 --report_id2 3b7baa08-2b32-46c8-a172-3e3ee158ff26
 #python src/main.py --email pbi@in516ht.com --password 7rTMTgw#BFBPR*WU --group_id 418fc146-6f6a-4b64-afc8-d8856a0d5b6f --report_id1 a7eb754e-6e0d-4e30-adc6-a2e7f0c6e24e --report_id2 28c4ba3f-bffa-48d9-8ab8-9cfbc0567f74
+#python src/main.py --email pbi@in516ht.com --password 7rTMTgw#BFBPR*WU --group_id 418fc146-6f6a-4b64-afc8-d8856a0d5b6f --report_id1 0223acce-21ac-4154-9e09-d7feeda1830e --report_id2 a86fa9f3-5487-4d8c-aaa2-5385e96d4d4e
+#python src/main.py --email pbi@in516ht.com --password 7rTMTgw#BFBPR*WU --group_id 418fc146-6f6a-4b64-afc8-d8856a0d5b6f --report_id1 09ad60b8-21d5-49c3-ad18-6ea6bfedd01c --report_id2 c7aa2c54-80aa-452f-8ccb-f102b9246dc0
+#python src/main.py --email pbi@in516ht.com --password 7rTMTgw#BFBPR*WU --group_id 418fc146-6f6a-4b64-afc8-d8856a0d5b6f --report_id1 00955e1b-f364-4678-8e6b-87dccb729037 --report_id2 5affc50e-90fb-4714-982f-21103a6d02a4
+

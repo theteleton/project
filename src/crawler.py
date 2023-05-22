@@ -57,6 +57,21 @@ class Crawler:
         except:
             pass
 
+        try:
+            driver.find_element_by_xpath('//*[@id="collapsePagesPaneBtn"]').click()
+            time.sleep(2)
+        except:
+            pass
+        # //*[@id="pageNavBtn"]
+        
+        driver.save_screenshot('./screenshots/screenshot.png')
+
+        try:
+            driver.find_element_by_xpath('//*[@id="pvExplorationHost"]/div/div/exploration/div/explore-canvas/div/div[2]/outspace-pane/article/div[1]/button[2]').click()
+            time.sleep(2)
+        except:
+            pass
+
         actions = ActionChains(driver)
         actions.move_by_offset(961, 121).click().perform()
         time.sleep(5)
