@@ -1,5 +1,6 @@
 from crawler import Crawler
 from comparator import PowerBIComparator
+from comparator2 import ComparatorPowerBI
 import os
 import argparse
 from processing import ImageProcessing
@@ -47,8 +48,8 @@ if __name__ == "__main__":
     """
     #obj = ImageProcessing()
     #obj.preprocess("./data7/screenshots/screenshot0.png")
-    comparator = PowerBIComparator(f"{args.data_folder}/Report1", f"{args.data_folder}/Report1")
-    comparator.input_tables()
+    comparator = ComparatorPowerBI(f"{args.data_folder}")
+    comparator.create_predictions()
 
     
     
