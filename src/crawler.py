@@ -14,13 +14,14 @@ import shutil
 
 # Set up driver
 class Crawler:
-    def __init__(self, username, password, group_id, report_id, screenshots_path, data_path):
+    def __init__(self, username, password, group_id, report_id, screenshots_path, data_path, downloads_path):
         self.group_id = group_id
         self.report_id = report_id
         self.username = username
         self.password = password
         self.screenshots_path = screenshots_path
         self.data_path = data_path
+        self.downloads_path = downloads_path
     def crawl(self):
         chrome_options = webdriver.ChromeOptions()
         prefs = {'download.prompt_for_download': False,
@@ -29,9 +30,10 @@ class Crawler:
         chrome_options.add_experimental_option("prefs", prefs)
         chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-popup-blocking")
+        chrome_options.add_argument("--headless")
         driver = webdriver.Chrome("./chromedriver", chrome_options=chrome_options)
         driver.get(f"https://app.powerbi.com/groups/{self.group_id}/reports/{self.report_id}/ReportSection")
-        driver.maximize_window()
+        driver.set_window_size(width=1846, height=933)
 
         time.sleep(5)
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "email")))
@@ -91,9 +93,9 @@ class Crawler:
             if i < 1:
                 curr_folder = ""
                 if pages[i] == "First_(unnamed)_page":
-                    curr_folder = f"{self.data_path}/{pages[i]}"
+                    curr_folder = f"{self.data_path}/{i}.{pages[i]}"
                 else:
-                    curr_folder = f"{self.data_path}/{pages[i].text}"
+                    curr_folder = f"{self.data_path}/{i}.{pages[i].text}"
                 os.makedirs(curr_folder)
                 try:
                     driver.find_element_by_xpath('//*[@id="collapsePagesPaneBtn"]').click()
@@ -125,7 +127,7 @@ class Crawler:
 
                 pages = driver.find_elements_by_css_selector('[data-testid="pages-navigation-list-items"]')
                 print(pages)
-                curr_folder = f"{self.data_path}/{pages[i].text}"
+                curr_folder = f"{self.data_path}/{i}.{pages[i].text}"
                 os.makedirs(curr_folder)
                 pages[i].click()
                 time.sleep(5)
@@ -176,11 +178,15 @@ class Crawler:
                     time.sleep(3)
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-content/div[3]/pbi-dropdown/button').click()
                     time.sleep(6)
-                    driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div").click()
+                    button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div")
+                    if button.text[:4] != ".csv":
+                        button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(2) > div")
+                    button.click()
                     time.sleep(2)
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-actions/button[1]').click()
                     time.sleep(10)
-                    source_dir = '../../Downloads'
+                    
+                    source_dir = self.downloads_path
                     destination_dir = curr_folder
                     files = os.listdir(source_dir)
                     for file in files:
@@ -207,14 +213,17 @@ class Crawler:
                     time.sleep(3)
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-content/div[3]/pbi-dropdown/button').click()
                     time.sleep(6)
-                    driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div").click()
+                    button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div")
+                    if button.text[:4] != ".csv":
+                        button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(2) > div")
+                    button.click()
                     time.sleep(2)
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-actions/button[1]').click()
                     time.sleep(10)
                     actions = ActionChains(driver)
                     actions.move_by_offset(0,  10).click().perform()
                     time.sleep(2)
-                    source_dir = '../../Downloads'
+                    source_dir = self.downloads_path
                     destination_dir = curr_folder
                     files = os.listdir(source_dir)
                     for file in files:
@@ -248,14 +257,17 @@ class Crawler:
                     time.sleep(3)
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-content/div[3]/pbi-dropdown/button').click()
                     time.sleep(6)
-                    driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div").click()
+                    button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div")
+                    if button.text[:4] != ".csv":
+                        button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(2) > div")
+                    button.click()
                     time.sleep(2)
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-actions/button[1]').click()
                     time.sleep(10)
                     actions = ActionChains(driver)
                     actions.move_by_offset(0, -h-10).click().perform()
                     time.sleep(2)
-                    source_dir = '../../Downloads'
+                    source_dir = self.downloads_path
                     destination_dir = curr_folder
                     files = os.listdir(source_dir)
                     for file in files:

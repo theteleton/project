@@ -9,9 +9,11 @@ class ImageProcessing:
         img = cv2.imread(image_path)
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        print("SHAPE")
+        print(gray.shape)
         for i in range(gray.shape[0]):
             for j in range(gray.shape[1]):
-                if gray[i, j] != 247 and gray[i, j] != 255:
+                if gray[i, j] < 240 and gray[i, j] != 255:
                     gray[i,j] = 255
         for i in range(gray.shape[0]):
             for j in range(gray.shape[1]):
