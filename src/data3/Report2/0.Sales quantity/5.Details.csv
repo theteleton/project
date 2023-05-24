@@ -1,0 +1,204 @@
+﻿Date,Customer,Veggie,Quantity
+2021-01-02 00:00:00,Amamos las verduras,Potatoes,13824
+2021-01-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,14037
+2021-01-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,4843
+2021-01-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,9727
+2021-01-07 00:00:00,Wir lieben Gemüse,Broccoli,30994
+2021-01-07 00:00:00,Wir lieben Gemüse,Peppers,13781
+2021-01-08 00:00:00,Amamos las verduras,Cabbage,35874
+2021-01-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,16248
+2021-01-15 00:00:00,We love veggies,Broccoli,16823
+2021-01-15 00:00:00,We love veggies,Potatoes,9827
+2021-01-17 00:00:00,Amamos las verduras,Peppers,67322
+2021-01-21 00:00:00,Amiamo le verdure,Peppers,29461
+2021-01-21 00:00:00,Volimo povrce,Peppers,32369
+2021-01-23 00:00:00,Amamos las verduras,Broccoli,11953
+2021-01-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,50868
+2021-01-28 00:00:00,Volimo povrce,Cabbage,40164
+2021-01-29 00:00:00,Volimo povrce,Cabbage,15085
+2021-02-02 00:00:00,Amamos las verduras,Potatoes,17592
+2021-02-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,17865
+2021-02-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,6163
+2021-02-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,12379
+2021-02-07 00:00:00,Wir lieben Gemüse,Broccoli,39442
+2021-02-07 00:00:00,Wir lieben Gemüse,Peppers,17537
+2021-02-08 00:00:00,Amamos las verduras,Cabbage,45654
+2021-02-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,20676
+2021-02-15 00:00:00,We love veggies,Broccoli,21407
+2021-02-15 00:00:00,We love veggies,Potatoes,12503
+2021-02-17 00:00:00,Amamos las verduras,Peppers,85670
+2021-02-21 00:00:00,Amiamo le verdure,Peppers,37489
+2021-02-21 00:00:00,Volimo povrce,Peppers,41189
+2021-02-23 00:00:00,Amamos las verduras,Broccoli,15205
+2021-02-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,64728
+2021-02-28 00:00:00,Volimo povrce,Cabbage,70297
+2021-03-02 00:00:00,Amamos las verduras,Potatoes,31460
+2021-03-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,31920
+2021-03-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,11036
+2021-03-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,22136
+2021-03-07 00:00:00,Wir lieben Gemüse,Broccoli,70552
+2021-03-07 00:00:00,Wir lieben Gemüse,Peppers,31376
+2021-03-08 00:00:00,Amamos las verduras,Cabbage,81608
+2021-03-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,37008
+2021-03-15 00:00:00,We love veggies,Broccoli,38328
+2021-03-15 00:00:00,We love veggies,Potatoes,22428
+2021-03-17 00:00:00,Amamos las verduras,Peppers,153260
+2021-03-21 00:00:00,Amiamo le verdure,Peppers,67100
+2021-03-21 00:00:00,Volimo povrce,Peppers,73724
+2021-03-23 00:00:00,Amamos las verduras,Broccoli,27328
+2021-03-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,115908
+2021-03-28 00:00:00,Volimo povrce,Cabbage,110773
+2021-03-29 00:00:00,Volimo povrce,Cabbage,15192
+2021-04-02 00:00:00,Amamos las verduras,Potatoes,31460
+2021-04-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,31920
+2021-04-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,11036
+2021-04-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,22136
+2021-04-07 00:00:00,Wir lieben Gemüse,Broccoli,92065
+2021-04-07 00:00:00,Wir lieben Gemüse,Peppers,31376
+2021-04-08 00:00:00,Amamos las verduras,Cabbage,81608
+2021-04-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,37008
+2021-04-15 00:00:00,We love veggies,Broccoli,38328
+2021-04-15 00:00:00,We love veggies,Potatoes,22428
+2021-04-17 00:00:00,Amamos las verduras,Peppers,199987
+2021-04-21 00:00:00,Amiamo le verdure,Peppers,67100
+2021-04-21 00:00:00,Volimo povrce,Peppers,73724
+2021-04-23 00:00:00,Amamos las verduras,Broccoli,27328
+2021-04-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,151212
+2021-04-28 00:00:00,Volimo povrce,Cabbage,110773
+2021-04-29 00:00:00,Volimo povrce,Cabbage,53533
+2021-05-02 00:00:00,Amamos las verduras,Potatoes,94336
+2021-05-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,95742
+2021-05-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,33078
+2021-05-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,66378
+2021-05-07 00:00:00,Wir lieben Gemüse,Broccoli,211540
+2021-05-07 00:00:00,Wir lieben Gemüse,Peppers,94070
+2021-05-08 00:00:00,Amamos las verduras,Cabbage,244744
+2021-05-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,110940
+2021-05-15 00:00:00,We love veggies,Broccoli,114886
+2021-05-15 00:00:00,We love veggies,Potatoes,67186
+2021-05-17 00:00:00,Amamos las verduras,Peppers,459512
+2021-05-21 00:00:00,Amiamo le verdure,Peppers,201150
+2021-05-21 00:00:00,Volimo povrce,Peppers,221006
+2021-05-23 00:00:00,Amamos las verduras,Broccoli,81814
+2021-05-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,347412
+2021-05-28 00:00:00,Volimo povrce,Cabbage,332007
+2021-05-29 00:00:00,Volimo povrce,Cabbage,45469
+2021-06-02 00:00:00,Amamos las verduras,Potatoes,31460
+2021-06-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,31920
+2021-06-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,11036
+2021-06-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,22136
+2021-06-07 00:00:00,Wir lieben Gemüse,Broccoli,70552
+2021-06-07 00:00:00,Wir lieben Gemüse,Peppers,31376
+2021-06-08 00:00:00,Amamos las verduras,Cabbage,81608
+2021-06-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,37008
+2021-06-15 00:00:00,We love veggies,Broccoli,38328
+2021-06-15 00:00:00,We love veggies,Potatoes,22428
+2021-06-17 00:00:00,Amamos las verduras,Peppers,153260
+2021-06-21 00:00:00,Amiamo le verdure,Peppers,67100
+2021-06-21 00:00:00,Volimo povrce,Peppers,73724
+2021-06-23 00:00:00,Amamos las verduras,Broccoli,27328
+2021-06-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,115908
+2021-06-28 00:00:00,Volimo povrce,Cabbage,110773
+2021-06-29 00:00:00,Volimo povrce,Cabbage,15192
+2021-07-02 00:00:00,Amamos las verduras,Potatoes,165800
+2021-07-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,168433
+2021-07-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,58083
+2021-07-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,116691
+2021-07-07 00:00:00,Wir lieben Gemüse,Broccoli,371730
+2021-07-07 00:00:00,Wir lieben Gemüse,Peppers,165273
+2021-07-08 00:00:00,Amamos las verduras,Cabbage,430334
+2021-07-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,194844
+2021-07-15 00:00:00,We love veggies,Broccoli,201711
+2021-07-15 00:00:00,We love veggies,Potatoes,117759
+2021-07-17 00:00:00,Amamos las verduras,Peppers,807358
+2021-07-21 00:00:00,Amiamo le verdure,Peppers,353257
+2021-07-21 00:00:00,Volimo povrce,Peppers,388109
+2021-07-23 00:00:00,Amamos las verduras,Broccoli,143117
+2021-07-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,609888
+2021-07-28 00:00:00,Volimo povrce,Cabbage,481572
+2021-07-29 00:00:00,Volimo povrce,Cabbage,180613
+2021-08-02 00:00:00,Amamos las verduras,Potatoes,193432
+2021-08-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,196505
+2021-08-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,67763
+2021-08-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,136139
+2021-08-07 00:00:00,Wir lieben Gemüse,Broccoli,433682
+2021-08-07 00:00:00,Wir lieben Gemüse,Peppers,192817
+2021-08-08 00:00:00,Amamos las verduras,Cabbage,502054
+2021-08-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,227316
+2021-08-15 00:00:00,We love veggies,Broccoli,235327
+2021-08-15 00:00:00,We love veggies,Potatoes,137383
+2021-08-17 00:00:00,Amamos las verduras,Peppers,941910
+2021-08-21 00:00:00,Amiamo le verdure,Peppers,412129
+2021-08-21 00:00:00,Volimo povrce,Peppers,452789
+2021-08-23 00:00:00,Amamos las verduras,Broccoli,166965
+2021-08-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,711528
+2021-08-28 00:00:00,Volimo povrce,Cabbage,561828
+2021-08-29 00:00:00,Volimo povrce,Cabbage,210709
+2021-09-02 00:00:00,Amamos las verduras,Potatoes,142028
+2021-09-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,144245
+2021-09-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,49819
+2021-09-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,99991
+2021-09-07 00:00:00,Wir lieben Gemüse,Broccoli,318554
+2021-09-07 00:00:00,Wir lieben Gemüse,Peppers,141649
+2021-09-08 00:00:00,Amamos las verduras,Cabbage,368606
+2021-09-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,167076
+2021-09-15 00:00:00,We love veggies,Broccoli,172989
+2021-09-15 00:00:00,We love veggies,Potatoes,101121
+2021-09-17 00:00:00,Amamos las verduras,Peppers,691938
+2021-09-21 00:00:00,Amiamo le verdure,Peppers,302871
+2021-09-21 00:00:00,Volimo povrce,Peppers,332735
+2021-09-23 00:00:00,Amamos las verduras,Broccoli,123033
+2021-09-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,523140
+2021-09-28 00:00:00,Volimo povrce,Cabbage,432179
+2021-09-29 00:00:00,Volimo povrce,Cabbage,135971
+2021-10-02 00:00:00,Amamos las verduras,Potatoes,142017
+2021-10-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,144216
+2021-10-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,49770
+2021-10-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,99942
+2021-10-07 00:00:00,Wir lieben Gemüse,Broccoli,318424
+2021-10-07 00:00:00,Wir lieben Gemüse,Peppers,141584
+2021-10-08 00:00:00,Amamos las verduras,Cabbage,368535
+2021-10-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,166937
+2021-10-15 00:00:00,We love veggies,Broccoli,172842
+2021-10-15 00:00:00,We love veggies,Potatoes,100974
+2021-10-17 00:00:00,Amamos las verduras,Peppers,691616
+2021-10-21 00:00:00,Amiamo le verdure,Peppers,302668
+2021-10-21 00:00:00,Volimo povrce,Peppers,332536
+2021-10-23 00:00:00,Amamos las verduras,Broccoli,122812
+2021-10-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,522622
+2021-10-28 00:00:00,Volimo povrce,Cabbage,431910
+2021-10-29 00:00:00,Volimo povrce,Cabbage,135692
+2021-11-02 00:00:00,Amamos las verduras,Potatoes,142034
+2021-11-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,144222
+2021-11-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,49778
+2021-11-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,99950
+2021-11-07 00:00:00,Wir lieben Gemüse,Broccoli,318456
+2021-11-07 00:00:00,Wir lieben Gemüse,Peppers,141600
+2021-11-08 00:00:00,Amamos las verduras,Cabbage,368558
+2021-11-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,166954
+2021-11-15 00:00:00,We love veggies,Broccoli,172863
+2021-11-15 00:00:00,We love veggies,Potatoes,100995
+2021-11-17 00:00:00,Amamos las verduras,Peppers,691680
+2021-11-21 00:00:00,Amiamo le verdure,Peppers,302701
+2021-11-21 00:00:00,Volimo povrce,Peppers,332575
+2021-11-23 00:00:00,Amamos las verduras,Broccoli,122850
+2021-11-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,522680
+2021-11-28 00:00:00,Volimo povrce,Cabbage,431956
+2021-11-29 00:00:00,Volimo povrce,Cabbage,135739
+2021-12-02 00:00:00,Amamos las verduras,Potatoes,110536
+2021-12-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,112289
+2021-12-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Broccoli,38723
+2021-12-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,77795
+2021-12-07 00:00:00,Wir lieben Gemüse,Broccoli,247826
+2021-12-07 00:00:00,Wir lieben Gemüse,Peppers,110185
+2021-12-08 00:00:00,Amamos las verduras,Cabbage,286894
+2021-12-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,129900
+2021-12-15 00:00:00,We love veggies,Broccoli,134479
+2021-12-15 00:00:00,We love veggies,Potatoes,78511
+2021-12-17 00:00:00,Amamos las verduras,Peppers,538254
+2021-12-21 00:00:00,Amiamo le verdure,Peppers,235513
+2021-12-21 00:00:00,Volimo povrce,Peppers,258749
+2021-12-23 00:00:00,Amamos las verduras,Broccoli,95421
+2021-12-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,406608
+2021-12-28 00:00:00,Volimo povrce,Cabbage,321060
+2021-12-29 00:00:00,Volimo povrce,Cabbage,120421

@@ -1,0 +1,204 @@
+﻿Date,Customer,Veggie,Quantity
+2022-01-02 00:00:00,Amamos las verduras,Potatoes,20758
+2022-01-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,28083
+2022-01-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,9701
+2022-01-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,19469
+2022-01-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,62046
+2022-01-07 00:00:00,Wir lieben Gemüse,Peppers,27591
+2022-01-08 00:00:00,Amamos las verduras,Cabbage,53851
+2022-01-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,24414
+2022-01-15 00:00:00,We love veggies,Brassica oleracea var. italica,33695
+2022-01-15 00:00:00,We love veggies,Potatoes,19703
+2022-01-17 00:00:00,Amamos las verduras,Peppers,134778
+2022-01-21 00:00:00,Amiamo le verdure,Peppers,58997
+2022-01-21 00:00:00,Volimo povrce,Peppers,64821
+2022-01-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,23991
+2022-01-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,76458
+2022-01-28 00:00:00,Volimo povrce,Cabbage,60350
+2022-01-29 00:00:00,Volimo povrce,Cabbage,30277
+2022-02-02 00:00:00,Amamos las verduras,Potatoes,26410
+2022-02-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,35739
+2022-02-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,12341
+2022-02-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,24773
+2022-02-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,78942
+2022-02-07 00:00:00,Wir lieben Gemüse,Peppers,35103
+2022-02-08 00:00:00,Amamos las verduras,Cabbage,68521
+2022-02-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,31056
+2022-02-15 00:00:00,We love veggies,Brassica oleracea var. italica,42863
+2022-02-15 00:00:00,We love veggies,Potatoes,25055
+2022-02-17 00:00:00,Amamos las verduras,Peppers,171474
+2022-02-21 00:00:00,Amiamo le verdure,Peppers,75053
+2022-02-21 00:00:00,Volimo povrce,Peppers,82461
+2022-02-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,30495
+2022-02-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,97248
+2022-02-28 00:00:00,Volimo povrce,Cabbage,115248
+2022-03-02 00:00:00,Amamos las verduras,Potatoes,31460
+2022-03-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,31920
+2022-03-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,11036
+2022-03-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,22136
+2022-03-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,70552
+2022-03-07 00:00:00,Wir lieben Gemüse,Peppers,31376
+2022-03-08 00:00:00,Amamos las verduras,Cabbage,81608
+2022-03-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,37008
+2022-03-15 00:00:00,We love veggies,Brassica oleracea var. italica,38328
+2022-03-15 00:00:00,We love veggies,Potatoes,22428
+2022-03-17 00:00:00,Amamos las verduras,Peppers,153260
+2022-03-21 00:00:00,Amiamo le verdure,Peppers,67100
+2022-03-21 00:00:00,Volimo povrce,Peppers,73724
+2022-03-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,27328
+2022-03-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,115908
+2022-03-28 00:00:00,Volimo povrce,Cabbage,110773
+2022-03-29 00:00:00,Volimo povrce,Cabbage,15192
+2022-04-02 00:00:00,Amamos las verduras,Potatoes,31460
+2022-04-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,31920
+2022-04-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,11036
+2022-04-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,22136
+2022-04-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,113607
+2022-04-07 00:00:00,Wir lieben Gemüse,Peppers,31376
+2022-04-08 00:00:00,Amamos las verduras,Cabbage,81608
+2022-04-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,37008
+2022-04-15 00:00:00,We love veggies,Brassica oleracea var. italica,38328
+2022-04-15 00:00:00,We love veggies,Potatoes,22428
+2022-04-17 00:00:00,Amamos las verduras,Peppers,246781
+2022-04-21 00:00:00,Amiamo le verdure,Peppers,67100
+2022-04-21 00:00:00,Volimo povrce,Peppers,73724
+2022-04-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,27328
+2022-04-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,168942
+2022-04-28 00:00:00,Volimo povrce,Cabbage,110773
+2022-04-29 00:00:00,Volimo povrce,Cabbage,91981
+2022-05-02 00:00:00,Amamos las verduras,Potatoes,94336
+2022-05-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,95742
+2022-05-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,33078
+2022-05-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,66378
+2022-05-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,211540
+2022-05-07 00:00:00,Wir lieben Gemüse,Peppers,94070
+2022-05-08 00:00:00,Amamos las verduras,Cabbage,244744
+2022-05-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,110940
+2022-05-15 00:00:00,We love veggies,Brassica oleracea var. italica,114886
+2022-05-15 00:00:00,We love veggies,Potatoes,67186
+2022-05-17 00:00:00,Amamos las verduras,Peppers,459512
+2022-05-21 00:00:00,Amiamo le verdure,Peppers,201150
+2022-05-21 00:00:00,Volimo povrce,Peppers,221006
+2022-05-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,81814
+2022-05-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,347412
+2022-05-28 00:00:00,Volimo povrce,Cabbage,332007
+2022-05-29 00:00:00,Volimo povrce,Cabbage,45469
+2022-06-02 00:00:00,Amamos las verduras,Potatoes,31460
+2022-06-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,31920
+2022-06-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,11036
+2022-06-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,22136
+2022-06-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,70552
+2022-06-07 00:00:00,Wir lieben Gemüse,Peppers,31376
+2022-06-08 00:00:00,Amamos las verduras,Cabbage,81608
+2022-06-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,37008
+2022-06-15 00:00:00,We love veggies,Brassica oleracea var. italica,38328
+2022-06-15 00:00:00,We love veggies,Potatoes,22428
+2022-06-17 00:00:00,Amamos las verduras,Peppers,153260
+2022-06-21 00:00:00,Amiamo le verdure,Peppers,67100
+2022-06-21 00:00:00,Volimo povrce,Peppers,73724
+2022-06-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,27328
+2022-06-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,115908
+2022-06-28 00:00:00,Volimo povrce,Cabbage,110773
+2022-06-29 00:00:00,Volimo povrce,Cabbage,15192
+2022-07-02 00:00:00,Amamos las verduras,Potatoes,248722
+2022-07-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,336875
+2022-07-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,116181
+2022-07-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,233397
+2022-07-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,743518
+2022-07-07 00:00:00,Wir lieben Gemüse,Peppers,330575
+2022-07-08 00:00:00,Amamos las verduras,Cabbage,645541
+2022-07-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,292308
+2022-07-15 00:00:00,We love veggies,Brassica oleracea var. italica,403471
+2022-07-15 00:00:00,We love veggies,Potatoes,235567
+2022-07-17 00:00:00,Amamos las verduras,Peppers,1614850
+2022-07-21 00:00:00,Amiamo le verdure,Peppers,706589
+2022-07-21 00:00:00,Volimo povrce,Peppers,776301
+2022-07-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,286319
+2022-07-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,914988
+2022-07-28 00:00:00,Volimo povrce,Cabbage,722462
+2022-07-29 00:00:00,Volimo povrce,Cabbage,361333
+2022-08-02 00:00:00,Amamos las verduras,Potatoes,290170
+2022-08-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,393019
+2022-08-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,135541
+2022-08-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,272293
+2022-08-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,867422
+2022-08-07 00:00:00,Wir lieben Gemüse,Peppers,385663
+2022-08-08 00:00:00,Amamos las verduras,Cabbage,753121
+2022-08-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,341016
+2022-08-15 00:00:00,We love veggies,Brassica oleracea var. italica,470703
+2022-08-15 00:00:00,We love veggies,Potatoes,274815
+2022-08-17 00:00:00,Amamos las verduras,Peppers,1883954
+2022-08-21 00:00:00,Amiamo le verdure,Peppers,824333
+2022-08-21 00:00:00,Volimo povrce,Peppers,905661
+2022-08-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,334015
+2022-08-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,1067448
+2022-08-28 00:00:00,Volimo povrce,Cabbage,842846
+2022-08-29 00:00:00,Volimo povrce,Cabbage,421525
+2022-09-02 00:00:00,Amamos las verduras,Potatoes,142028
+2022-09-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,144245
+2022-09-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,49819
+2022-09-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,99991
+2022-09-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,318554
+2022-09-07 00:00:00,Wir lieben Gemüse,Peppers,141649
+2022-09-08 00:00:00,Amamos las verduras,Cabbage,368606
+2022-09-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,167076
+2022-09-15 00:00:00,We love veggies,Brassica oleracea var. italica,172989
+2022-09-15 00:00:00,We love veggies,Potatoes,101121
+2022-09-17 00:00:00,Amamos las verduras,Peppers,691938
+2022-09-21 00:00:00,Amiamo le verdure,Peppers,302871
+2022-09-21 00:00:00,Volimo povrce,Peppers,332735
+2022-09-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,123033
+2022-09-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,523140
+2022-09-28 00:00:00,Volimo povrce,Cabbage,432179
+2022-09-29 00:00:00,Volimo povrce,Cabbage,135971
+2022-10-02 00:00:00,Amamos las verduras,Potatoes,142017
+2022-10-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,144216
+2022-10-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,49770
+2022-10-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,99942
+2022-10-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,318424
+2022-10-07 00:00:00,Wir lieben Gemüse,Peppers,141584
+2022-10-08 00:00:00,Amamos las verduras,Cabbage,368535
+2022-10-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,166937
+2022-10-15 00:00:00,We love veggies,Brassica oleracea var. italica,172842
+2022-10-15 00:00:00,We love veggies,Potatoes,100974
+2022-10-17 00:00:00,Amamos las verduras,Peppers,691616
+2022-10-21 00:00:00,Amiamo le verdure,Peppers,302668
+2022-10-21 00:00:00,Volimo povrce,Peppers,332536
+2022-10-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,122812
+2022-10-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,522622
+2022-10-28 00:00:00,Volimo povrce,Cabbage,431910
+2022-10-29 00:00:00,Volimo povrce,Cabbage,135692
+2022-11-02 00:00:00,Amamos las verduras,Potatoes,142034
+2022-11-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,144222
+2022-11-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,49778
+2022-11-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,99950
+2022-11-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,318456
+2022-11-07 00:00:00,Wir lieben Gemüse,Peppers,141600
+2022-11-08 00:00:00,Amamos las verduras,Cabbage,368558
+2022-11-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,166954
+2022-11-15 00:00:00,We love veggies,Brassica oleracea var. italica,172863
+2022-11-15 00:00:00,We love veggies,Potatoes,100995
+2022-11-17 00:00:00,Amamos las verduras,Peppers,691680
+2022-11-21 00:00:00,Amiamo le verdure,Peppers,302701
+2022-11-21 00:00:00,Volimo povrce,Peppers,332575
+2022-11-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,122850
+2022-11-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,522680
+2022-11-28 00:00:00,Volimo povrce,Cabbage,431956
+2022-11-29 00:00:00,Volimo povrce,Cabbage,135739
+2022-12-02 00:00:00,Amamos las verduras,Potatoes,165826
+2022-12-03 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,224587
+2022-12-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Brassica oleracea var. italica,77461
+2022-12-05 00:00:00,Mi mamo radi zelenjavo d.o.o.,Cabbage,155605
+2022-12-07 00:00:00,Wir lieben Gemüse,Brassica oleracea var. italica,495710
+2022-12-07 00:00:00,Wir lieben Gemüse,Peppers,220399
+2022-12-08 00:00:00,Amamos las verduras,Cabbage,430381
+2022-12-14 00:00:00,Mi mamo radi zelenjavo d.o.o.,Peppers,194892
+2022-12-15 00:00:00,We love veggies,Brassica oleracea var. italica,269007
+2022-12-15 00:00:00,We love veggies,Potatoes,157071
+2022-12-17 00:00:00,Amamos las verduras,Peppers,1076642
+2022-12-21 00:00:00,Amiamo le verdure,Peppers,471101
+2022-12-21 00:00:00,Volimo povrce,Peppers,517581
+2022-12-23 00:00:00,Amamos las verduras,Brassica oleracea var. italica,190927
+2022-12-26 00:00:00,Mi mamo radi zelenjavo d.o.o.,Potatoes,610068
+2022-12-28 00:00:00,Volimo povrce,Cabbage,481694
+2022-12-29 00:00:00,Volimo povrce,Cabbage,240949

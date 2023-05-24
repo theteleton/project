@@ -35,27 +35,37 @@ class Crawler:
         driver.get(f"https://app.powerbi.com/groups/{self.group_id}/reports/{self.report_id}/ReportSection")
         driver.set_window_size(width=1846, height=933)
 
-        time.sleep(5)
+        time.sleep(7)
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "email")))
         email = driver.find_element_by_id("email")
         email.send_keys(self.username)
         driver.find_element_by_id("submitBtn").click()
-        time.sleep(6)
-        password = driver.find_element_by_id("i0118")
-        password.send_keys(self.password)
+        time.sleep(7)
+        try:
+            password = driver.find_element_by_id("i0118")
+            password.send_keys(self.password)
+            driver.find_element_by_id("idSIButton9").click()
+            time.sleep(7)
+        except:
+            password = driver.find_element_by_id("passwordInput")
+            password.send_keys(self.password)
+            driver.find_element_by_id("submitButton").click()
+            time.sleep(7)
+            
+        try:
+            driver.find_element_by_xpath('//*[@id="idDiv_SAOTCS_Proofs"]/div[1]/div').click()
+            time.sleep(7)
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.ID, "idTxtBx_SAOTCC_OTC")))
+            code = input("Enter two-factor authentication code: ")
+            code_input = driver.find_element_by_id("idTxtBx_SAOTCC_OTC")
+            code_input.send_keys(code)
+            driver.find_element_by_id("idSubmit_SAOTCC_Continue").click()
+            time.sleep(7)
+            
+        except:
+            pass
         driver.find_element_by_id("idSIButton9").click()
-        time.sleep(6)
-        driver.find_element_by_xpath('//*[@id="idDiv_SAOTCS_Proofs"]/div[1]/div').click()
-        time.sleep(6)
-        WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.ID, "idTxtBx_SAOTCC_OTC")))
-        code = input("Enter two-factor authentication code: ")
-        code_input = driver.find_element_by_id("idTxtBx_SAOTCC_OTC")
-        code_input.send_keys(code)
-        driver.find_element_by_id("idSubmit_SAOTCC_Continue").click()
-        time.sleep(6)
-        driver.find_element_by_id("idSIButton9").click()
-        time.sleep(6)
-
+        time.sleep(7)
         driver.find_element_by_xpath('//*[@id="zoomValueButton"]').click()
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="pbi-radio-button-3"]').click()
@@ -79,7 +89,6 @@ class Crawler:
             pass
         
         pages = driver.find_elements_by_css_selector('[data-testid="pages-navigation-list-items"]')
-        print(pages)
         if len(pages) == 0:
             pages = ["First_(unnamed)_page"]
 
@@ -106,7 +115,7 @@ class Crawler:
                 img_proces = ImageProcessing()
                 list_of_vizuals = img_proces.preprocess(f"{self.screenshots_path}/screenshot{i}.png")
                 list_of_vizuals = sorted(list_of_vizuals)
-                print(list_of_vizuals)
+                print(f"THERE ARE {len(list_of_vizuals)} VIZUALS FOUND ON PAGE {curr_folder.split('/')[-1]}")
 
                 x_start = last_x
                 y_start = last_y
@@ -114,7 +123,6 @@ class Crawler:
                 for (x, y, w, h) in list_of_vizuals:
                     x_new = x + w - 7
                     y_new = y + 7
-                    print(x_new, y_new)
                     pos.append((x_new - x_start, y_new - y_start, w, h))
                     x_start = x_new
                     y_start = y_new
@@ -126,7 +134,7 @@ class Crawler:
                     pass
 
                 pages = driver.find_elements_by_css_selector('[data-testid="pages-navigation-list-items"]')
-                print(pages)
+
                 curr_folder = f"{self.data_path}/{i}.{pages[i].text}"
                 os.makedirs(curr_folder)
                 pages[i].click()
@@ -142,13 +150,13 @@ class Crawler:
                 img_proces = ImageProcessing()
                 list_of_vizuals = img_proces.preprocess(f"{self.screenshots_path}/screenshot{i}.png")
                 list_of_vizuals = sorted(list_of_vizuals)
-                print(list_of_vizuals)
+                print(f"THERE ARE {len(list_of_vizuals)} VIZUALS FOUND ON PAGE {curr_folder.split('/')[-1]}")
 
                 pos = []
                 for (x, y, w, h) in list_of_vizuals:
                     x_new = x + w - 7
                     y_new = y + 7
-                    print(x_new, y_new)
+
                     pos.append((x_new - x_start, y_new - y_start, w, h))
                     x_start = x_new
                     y_start = y_new        
@@ -159,15 +167,9 @@ class Crawler:
                 total += 1
                 
                 (x, y, w, h) = pos[idx]
-                print(f"idx = {idx}", x, y, w, h)
-                #actions.move_by_offset(x, y).context_click().perform()
-                #time.sleep(10)
-                #actions.move_by_offset(0, 0).context_click().perform()
-                
-                (x, y, w, h) = pos[idx]
+
                 
                 try:
-                    print("vleze")
                     
                     actions = ActionChains(driver)
                     actions.move_by_offset(x, y).click().perform()
@@ -203,7 +205,6 @@ class Crawler:
                     pass
 
                 try:
-                    print("vleze2")
                     actions = ActionChains(driver)
                     actions.move_by_offset(0,  -7).click().perform()
                     time.sleep(2)
@@ -240,11 +241,7 @@ class Crawler:
                     pass
                 
                 try:
-                    print("vleze3")
-                    #if idx == 2:
-                        #actions = ActionChains(driver)
-                        #actions.move_by_offset(0,  0).context_click().perform()
-                        #time.sleep(10)
+
                     actions = ActionChains(driver)
                     actions.move_by_offset(0, 10).click().perform()
                     time.sleep(2)

@@ -2,27 +2,26 @@ import numpy as np
 import pandas as pd
 import math
 import openpyxl
+import os
 from openpyxl.styles import PatternFill
-from openpyxl.styles.colors import Color
-class PowerBIComparator:
-    def __init__(self, data_path1, data_path2):
-        self.path1 = data_path1
-        self.path2 = data_path2
+from openpyxl.worksheet.hyperlink import Hyperlink
+
+class ComparatorPowerBI:
+    def __init__(self, data_path):
+        self.data_path = data_path
+    
     def unique(self, list):
         res = []
         for x in list:
             if x not in res:
                 res.append(x)
-
         return res
+    
+    def rearrange_tables(self, df1, df2):
+        columns1 = df1.columns.to_list()
+        columns2 = df2.columns.to_list()
 
-    def compare(self, df1, df2, key_word, key_id, new_feature=0):
-        n_rows_1 = len(df1)
-        n_rows_2 = len(df2)
-        n_cols_1 = len(df1.columns)
-        n_cols_2 = len(df2.columns)
-        unique_columns = self.unique(df1.columns.to_list() + df2.columns.to_list())
-        print(unique_columns)
+        unique_columns = self.unique(columns1 + columns2)
         dict1 = {}
         dict2 = {}
         visited = []
@@ -43,67 +42,121 @@ class PowerBIComparator:
         df1 = pd.DataFrame(dict1, columns=dict1.keys())
         df2 = pd.DataFrame(dict2, columns=dict2.keys())
 
-        unique_vals = self.unique(df1[key_word].to_list() + df2[key_word].to_list())
+        vis1 = [0 for i in range(len(df1))]
+        vis2 = [0 for i in range(len(df2))]
+
+        cnt1 = 0
+        cnt2 = 0
 
         rows1 = []
         rows2 = []
-        n_equal = 0
-        visited = []
-        for x in unique_vals:
-            if x in df1[key_word].to_list() and x in df2[key_word].to_list():
-                visited.append(x)
-                rows1.append(df1.loc[df1[key_word] == x].values.flatten().tolist())
-                rows2.append(df2.loc[df2[key_word] == x].values.flatten().tolist())
+
+        max_possible = 0
+        for i in range(len(vis1)):    
+            for j in range(len(vis2)):
+                    cnt = 0
+                    for x in visited:
+                        if df1[x][i] == df2[x][j]:
+                            cnt += 1
+                    max_possible = max(max_possible, cnt)
+
+        while cnt1 < len(df1) and cnt2 < len(df2):
+            best_i = -1
+            best_j = -1
+            max_match = -1
+            
+            for i in range(len(vis1)):    
+                if vis1[i] == 0:
+                    for j in range(len(vis2)):
+                        if vis2[j] == 0:
+                            cnt = 0
+                            for x in visited:
+                                if df1[x][i] == df2[x][j]:
+                                    cnt += 1
+                            if cnt > max_match:
+                                max_match = cnt
+                                best_i = i
+                                best_j = j
+                            if max_match == max_possible:
+                                break
+                    if max_match == max_possible:
+                        break
+                        
+            cnt1 += 1
+            cnt2 += 1
+            vis1[best_i] = 1
+            vis2[best_j] = 1
+            rows1.append(df1.iloc[best_i].values.flatten().tolist())
+            rows2.append(df2.iloc[best_j].values.flatten().tolist())
         
-        for x in unique_vals:
-            if x in visited:
-                continue
-            if x in df1[key_word].to_list():
-                rows1.append(df1.loc[df1[key_word] == x].values.flatten().tolist())
-            else:
-                rows2.append(df2.loc[df2[key_word] == x].values.flatten().tolist())
+        for i in range(len(df1)):
+            if vis1[i] == 0:
+                rows1.append(df1.iloc[i].values.flatten().tolist())
 
-        df1_new = pd.DataFrame(rows1, columns=df1.columns)
-        df2_new = pd.DataFrame(rows2, columns=df2.columns)
+        for i in range(len(df2)):
+            if vis2[i] == 0:
+                rows2.append(df2.iloc[i].values.flatten().tolist())
 
-        if new_feature == 1:
-            df1_new = df1_new.drop(df1_new.columns[-1], axis=1)
-            df2_new = df2_new.drop(df2_new.columns[-1], axis=1)
+        df1 = pd.DataFrame(rows1, columns=df1.columns)
+        df2 = pd.DataFrame(rows2, columns=df2.columns)
 
-        key_id_new = []
-        for x in key_id:
-            df1_new = df1_new.rename(columns={
-                x : f"KEY_ID[{x}]"
-            })
-            df2_new = df2_new.rename(columns={
-                x : f"KEY_ID[{x}]"
-            })
-            key_id_new.append(f"KEY_ID[{x}]")
+        return (df1, df2, visited)
+
+    def num_of_digits(self, st):
+        cnt = 0
+        for x in st:
+            if x.isdigit():
+                cnt += 1
+        return cnt
+
+    def compare_tables(self, df1, df2, common_columns):
         dict_delta = {}
         dict_color = {}
+        n_rows1 = len(df1)
+        n_rows2 = len(df2)
+        n_cols1 = len(df1.columns)
+        n_cols2 = len(df2.columns)
         diff_col = 1
-        for x in self.unique(df1_new.columns.to_list() + df2_new.columns.to_list()):
-            if x in df1_new.columns.to_list() and x in df2_new.columns.to_list():
-                dict_color[x] = []
+        columns = []
+        if n_cols1 > n_cols2:
+            columns = df1.columns.to_list()
+        else:
+            columns = df2.columns.to_list()
+        for x in columns:
+            if x in common_columns:
                 dict_delta[x] = []
-                for i in range(max(len(df1_new), len(df2_new))):
-                   
-
-                    if i < min(len(df1_new), len(df2_new)):
-                        if x in key_id_new:
-                            value1 = df1_new[x][i]
-                            value2 = df2_new[x][i]
-
-                            if value1 == value2:
-                                dict_color[x].append('00FF00')
-                                dict_delta[x].append("Same key values")
-                            else:
+                dict_color[x] = []
+                for i in range(max(len(df1), len(df2))):
+                    if i < min(len(df1), len(df2)):
+                        value1 = df1[x][i]
+                        value2 = df2[x][i]
+                        if isinstance(value1, str) and isinstance(value2, str):
+                            if (len(value1) - self.num_of_digits(value1) > 3 or self.num_of_digits(value1) == 0) and (len(value2) - self.num_of_digits(value2) > 3 or self.num_of_digits(value2) == 0): 
+                                if value1 == value2:
+                                    dict_color[x].append('00FF00')
+                                    dict_delta[x].append("Both values are strings and are equal")
+                                else:
+                                    dict_color[x].append('FF0000')
+                                    dict_delta[x].append("Both values are strings and are not equal")
+                                continue
+                            elif (len(value1) - self.num_of_digits(value1) > 3 or self.num_of_digits(value1) == 0) or (len(value2) - self.num_of_digits(value2) > 3 or self.num_of_digits(value2) == 0):
                                 dict_color[x].append('FF0000')
-                                dict_delta[x].append("Different key values")
-                            continue
+                                dict_delta[x].append("One is a number and the other one is a string")
+                                continue
 
-                        value1 = df1_new[x][i]
-                        value2 = df2_new[x][i]
+                        elif isinstance(value1, str):
+                            if len(value1) - self.num_of_digits(value1) > 3:
+                                dict_color[x].append('FF0000')
+                                dict_delta[x].append("One is a number and the other one is a string")
+                                continue
+                        elif isinstance(value1, str):
+                            if len(value2) - self.num_of_digits(value2) > 3:
+                                dict_color[x].append('FF0000')
+                                dict_delta[x].append("One is a number and the other one is a string")
+                                continue 
+
+
+
                         if not isinstance(value1, str) and not isinstance(value2, str):
                             if math.isnan(value1) or math.isnan(value2):
                                 if math.isnan(value1) and math.isnan(value2):
@@ -144,256 +197,248 @@ class PowerBIComparator:
                                 dict_color[x].append('FF0000')
                             dict_delta[x].append(str(diff))
                     else:
-                        dict_color[x].append('FF0000')
-                        dict_delta[x].append("Different key values")
-
+                        dict_delta[x].append("Different number of rows!")
+                        dict_color[x].append("FF0000")
             else:
                 dict_color["diff_column" + "_" + str(diff_col)] = []
                 dict_delta["diff_column" + "_" + str(diff_col)] = []
-                for i in range(max(len(df1_new), len(df2_new))):
+                for i in range(max(len(df1), len(df2))):
                     dict_color["diff_column" + "_" + str(diff_col)].append('FF0000')
                     dict_delta["diff_column" + "_" + str(diff_col)].append("Different columns")
-                dif_col += 1 
-
-        dict_num = {}
-        dict_num_col = {}
-        
-        dict_num["Number of rows"] = [abs(n_rows_1 - n_rows_2)]
-        if n_rows_2 != n_rows_1:
-            dict_num_col["Number of rows"] = ['FF0000']
-        else:
-            dict_num_col["Number of rows"] = ['00FF00']
-
-        dict_num["Number of columns"] = [abs(n_cols_1 - n_cols_2)]
-        if n_cols_2 != n_cols_1:
-            dict_num_col["Number of columns"] = ['FF0000']
-        else:
-            dict_num_col["Number of columns"] = ['00FF00']    
+                diff_col += 1 
 
         delta_df = pd.DataFrame(dict_delta, columns=dict_delta.keys())
         delta_df_np = pd.DataFrame(dict_color, columns=dict_color.keys()).to_numpy()
-        num_df = pd.DataFrame(dict_num, columns=dict_num.keys())
-        num_df_np = pd.DataFrame(dict_num_col, columns=dict_num_col.keys())
-        return df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np
-    
-    
-    def convert_to_normal_csv():
-        pass
+        return df1, df2, n_rows1, n_rows2, n_cols1, n_cols2, delta_df, delta_df_np
 
-    def input_tables(self):
 
-        sheets = {}
 
-        df1 = pd.read_csv(self.path1 + "/Sales quantity.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales quantity.csv")
-        new_list1 = []
-        for i in range(len(df1)):
-            new_list1.append(str(df1["Month short"][i] + str(df1["Date week"][i])))
-        df1["Week"] = new_list1
-        new_list2 = []
-        for i in range(len(df2)):
-            new_list2.append(str(df2["Month short"][i] + str(df2["Date week"][i])))
-        df2["Week"] = new_list2
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Week", key_id=["Month short", "Date week"], new_feature=1)
-        sheets["Sales quantity"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales quantity veggie
-        df1 = pd.read_csv(self.path1 + "/Sales quantity by veggie.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales quantity by veggie.csv")
+    def compare_pages(self, path1, path2):
+        l_df1 = os.listdir(path1)
+        l_df2 = os.listdir(path2)
 
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Veggie", key_id=["Veggie"], new_feature=0)
+        l_df1 = sorted(l_df1)
+        l_df2 = sorted(l_df2)
 
-        sheets["Sales quantity by veggie"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales quantity customer
-        df1 = pd.read_csv(self.path1 + "/Sales quantity by customer.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales quantity by customer.csv")
+        list_df1 = []
+        list_df2 = []
+        list_n_rows1 = []
+        list_n_rows2 = []
+        list_n_cols1 = []
+        list_n_cols2 = []
+        list_deltas = []
+        list_deltas_np = []
+        names1 = []
+        names2 = []
 
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Customer", key_id=["Customer"], new_feature=0)
-        sheets["Sales quantity by customer"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales quantity country
-        df1 = pd.read_csv(self.path1 + "/Sales quantity by country.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales quantity by country.csv")
+        for (df1_name, df2_name) in zip(l_df1, l_df2):
+            print(f"COMPARISON OF VIZUAL {df1_name}")
+            df1 = pd.read_csv(f"{path1}/{df1_name}")
+            df2 = pd.read_csv(f"{path2}/{df2_name}")
+            names1.append(df1_name[:-4])
+            names2.append(df2_name[:-4])
+            (df1, df2, common_columns) = self.rearrange_tables(df1, df2)
+            df1, df2, n_rows1, n_rows2, n_cols1, n_cols2, deltas, deltas_np = self.compare_tables(df1, df2, common_columns)
+            list_df1.append(df1)
+            list_df2.append(df2)
+            list_n_rows1.append(n_rows1)
+            list_n_rows2.append(n_rows2)
+            list_n_cols1.append(n_cols1)
+            list_n_cols2.append(n_cols2)
+            list_deltas.append(deltas)
+            list_deltas_np.append(deltas_np)
+        return list_df1, list_df2, list_n_rows1, list_n_rows2, list_n_cols1, list_n_cols2, list_deltas, list_deltas_np, names1, names2
 
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
-        sheets["Sales quantity by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales quantity SY VS PY
-        df1 = pd.read_csv(self.path1 + "/SY VS PY.csv")
-        df2 = pd.read_csv(self.path2 + "/SY VS PY.csv")
 
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Date year", key_id=["Date year"], new_feature=0)
-        sheets["SY vs PY Quantity"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        df1 = pd.read_csv(self.path1 + "/Sales value.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales value.csv")
-        new_list1 = []
-        for i in range(len(df1)):
-            new_list1.append(str(df1["Month short"][i] + str(df1["Date week"][i])))
-        df1["Week"] = new_list1
-        new_list2 = []
-        for i in range(len(df2)):
-            new_list2.append(str(df2["Month short"][i] + str(df2["Date week"][i])))
-        df2["Week"] = new_list2
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Week", key_id=["Month short", "Date week"], new_feature=1)
-        sheets["Sales value"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales value veggie
-        df1 = pd.read_csv(self.path1 + "/Sales value by veggie.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales value by veggie.csv")
+    def create_predictions(self):
+        viz1 = os.listdir(f"{self.data_path}/Report1")
+        viz2 = os.listdir(f"{self.data_path}/Report2")
 
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Veggie", key_id=["Veggie"], new_feature=0)
-        sheets["Sales value by veggie"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales value customer
-        df1 = pd.read_csv(self.path1 + "/Sales value by customer.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales value by customer.csv")
-
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Customer", key_id=["Customer"], new_feature=0)
-        sheets["Sales value by customer"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales value country
-        df1 = pd.read_csv(self.path1 + "/Sales value by country.csv")
-        df2 = pd.read_csv(self.path2 + "/Sales value by country.csv")
-
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Country", key_id=["Country"], new_feature=0)
-        sheets["Sales value by country"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-        # Sales value SY VS PY
-        df1 = pd.read_csv(self.path1 + "/SY VS PY (1).csv")
-        df2 = pd.read_csv(self.path2 + "/SY VS PY (1).csv")
-
-        df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np = self.compare(df1, df2, "Date year", key_id=["Date year"], new_feature=0)
-        sheets["SY vs PY Value"] = [df1_new, df2_new, n_rows_1, n_rows_2, n_cols_1, n_cols_2, delta_df, delta_df_np, num_df, num_df_np]
-
-        dict_status = {}
-        dict_status_col = {}
-        dict_status["Visual"] = []
-        dict_status["Status"] = []
-        dict_status_col["Status"] = []
-        for key in sheets.keys():
-            lst = np.unique(np.concatenate([np.unique(sheets[key][7]), np.unique(sheets[key][9])]))
-            if len(lst) == 1 and lst[0] == "00FF00":
-                dict_status["Visual"].append(key)
-                dict_status["Status"].append("Match")
-                dict_status_col["Status"].append("00FF00")
-            else:
-                dict_status["Visual"].append(key)
-                dict_status["Status"].append("Not Match")
-                dict_status_col["Status"].append("FF0000")
-        sheets["Overview"] = [pd.DataFrame(dict_status, columns=dict_status.keys()), pd.DataFrame(dict_status_col, columns=dict_status_col.keys()).to_numpy()]
-        self.create_results(sheets)
-    def create_results(self, sheets):
-
+        viz1 = sorted(viz1)
+        viz2 = sorted(viz2)
+        dict_overview = {}
+        dict_overview_col = {}
+        dict_hyperlink = {}
+        dict_overview['Page'] = []
+        dict_overview['Visual'] = []
+        dict_overview['Status'] = []
+        dict_hyperlink['Visual'] = []
+        dict_overview_col['Status'] = []
         workbook = openpyxl.Workbook()
-        for i, x in enumerate(["Overview", "SY vs PY Quantity", "Sales quantity by country", "Sales quantity by customer", "Sales quantity by veggie", "Sales quantity", "SY vs PY Value", "Sales value by country", "Sales value by customer", "Sales value by veggie", "Sales value"]):
-            sheet = workbook.create_sheet(title=x)
+        for (page1, page2) in zip(viz1, viz2):
+            print(f"COMPARISON OF PAGE {page1}")
+            if len(os.listdir(f"{self.data_path}/Report1/{page1}")) != len(os.listdir(f"{self.data_path}/Report2/{page2}")):
+                print("THESE ARE DIFFERENT REPORTS")
+                return
+            
 
-            if x == "Overview":
-                start_row = 2  
-                start_column = 'A'  
-                sheet["A1"] = "Overview"
+            
+            sheet = workbook.create_sheet(title=".".join(page1.split(".")[1:]))
+            list_df1, list_df2, list_n_rows1, list_n_rows2, list_n_cols1, list_n_cols2, list_deltas, list_deltas_np, names1, names2 = self.compare_pages(f"{self.data_path}/Report1/{page1}", f"{self.data_path}/Report2/{page2}")
+            
+            start_x = "A"
+            start_y = 4
+            inc_x = 0
+            inc_y = 0
+            
 
-                col_ = start_column
-                row_ = start_row
-                is_time_col = False
-                i = 0
-                j = 0
-                for val in sheets[x][0].columns:
-                    sheet[f'{col_}{row_}'] = val
-                    col_ = chr(ord(col_) + 1)
-                row_ += 1
-                for idx, row in sheets[x][0].iterrows():
-                    is_time_col = False
-                    j = 0
-                    col_ = start_column
-                    for cell in row:
-                        sheet[f'{col_}{row_}'] = cell
-                        
-                        if is_time_col == True:
-                            sheet[f'{col_}{row_}'].fill = PatternFill(start_color=sheets[x][1][i, j], end_color=sheets[x][1][i, j], fill_type='solid')
-                            j += 1
-                        col_ = chr(ord(col_) + 1)
-                        is_time_col = True
-                    row_ += 1
-                    i += 1
+            sheet["A1"] = f"Comparison of page {sheet.title}"
+            sheet["A2"] = "Report1"
 
-            else:
+            sheet[f"{chr(ord('A') + len(list_df1[0].columns) + 3)}2"] = "Report2"
+            
+            for (df1, df2, nr1, nr2, nc1, nc2, d, d_np, n1, n2) in zip(list_df1, list_df2, list_n_rows1, list_n_rows2, list_n_cols1, list_n_cols2, list_deltas, list_deltas_np, names1, names2):
+                col1 = "FF0000"
+                if nr1 == nr2:
+                    col1 = "00FF00"
+                col2 = "FF0000"
+                if nc1 == nc2:
+                    col2 = "00FF00"
+                dict_overview['Visual'].append(".".join(n1.split(".")[1:]))
                 
-                sheet["A1"] = "Comparison of " + x
-                sheet["A2"] = "Report 1"
-                ch = chr(len(sheets[x][0].columns) + 3 + 64)
+                dict_overview['Page'].append(sheet.title)
+                lst = np.unique(np.concatenate([np.unique(d_np), np.unique(np.array([col1, col2]))]))
+                if len(lst) == 1 and lst[0] == "00FF00":
+                    dict_overview["Status"].append("Match")
+                    dict_overview_col["Status"].append("00FF00")
+                else:
+                    dict_overview["Status"].append("Not Match")
+                    dict_overview_col["Status"].append("FF0000")
 
-                sheet[f"{ch}2"] = "Report 2"
+                
+                
 
-                start_row = 3  
-                start_column = 'A'  
-                col_ = start_column
+                start_row = start_y
+                start_col = start_x
+                sheet[f"{start_col}{start_row - 1}"] = ".".join(n1.split(".")[1:])
+                dict_hyperlink['Visual'].append(f"#\'{sheet.title}\'!{start_col}{start_row - 1}")
+                inc_y = max(len(df1), len(df2)) + 3
+                inc_x = len(df1.columns) + 3
+                col_ = start_col
                 row_ = start_row
-                for val in sheets[x][0].columns:
+                for val in df1.columns:
                     sheet[f'{col_}{row_}'] = val
                     col_ = chr(ord(col_) + 1)
                 row_ += 1
-                for idx, row in sheets[x][0].iterrows():
-                    col_ = start_column
+                for idx, row in df1.iterrows():
+                    col_ = start_col
                     for cell in row:
                         sheet[f'{col_}{row_}'] = cell
                         col_ = chr(ord(col_) + 1)
                     row_ += 1
 
-                sheet[f"{start_column}{row_ + 2}"] = "Number of rows"
-                sheet[f"{start_column}{row_ + 4}"] = "Number of columns"
-                sheet[f"{start_column}{row_ + 3}"] = sheets[x][2]
-                sheet[f"{start_column}{row_ + 5}"] = sheets[x][4]
+                sheet[f"{start_col}{start_y + inc_y}"] = "Number of rows"
+                sheet[f"{start_col}{start_y + inc_y + 2}"] = "Number of columns"
+                sheet[f"{start_col}{start_y + inc_y + 1}"] = nr1
+                sheet[f"{start_col}{start_y + inc_y + 3}"] = nc1
 
-                start_row = 3  
-                start_column = ch
-                col_ = start_column
+                start_col = chr(ord(start_col) + inc_x)
+                start_row = start_y
+                sheet[f"{start_col}{start_row - 1}"] = ".".join(n2.split(".")[1:])
+                inc_x = len(df2.columns) + 3
+
+                col_ = start_col
                 row_ = start_row
-                for val in sheets[x][1].columns:
+                
+                for val in df2.columns:
                     sheet[f'{col_}{row_}'] = val
                     col_ = chr(ord(col_) + 1)
                 row_ += 1
-                for idx, row in sheets[x][1].iterrows():
-                    col_ = start_column
+                for idx, row in df2.iterrows():
+                    col_ = start_col
                     for cell in row:
                         sheet[f'{col_}{row_}'] = cell
                         col_ = chr(ord(col_) + 1)
                     row_ += 1
 
-                sheet[f"{start_column}{row_ + 2}"] = "Number of rows"
-                sheet[f"{start_column}{row_ + 4}"] = "Number of columns"
-                sheet[f"{start_column}{row_ + 3}"] = sheets[x][3]
-                sheet[f"{start_column}{row_ + 5}"] = sheets[x][5]
+                sheet[f"{start_col}{start_y + inc_y}"] = "Number of rows"
+                sheet[f"{start_col}{start_y + inc_y + 2}"] = "Number of columns"
+                sheet[f"{start_col}{start_y + inc_y + 1}"] = nr2
+                sheet[f"{start_col}{start_y + inc_y + 3}"] = nc2
 
-                start_row = 3  
-                start_column = chr(ord(ch) + len(sheets[x][1].columns) + 3)
-                sheet[f"{start_column}2"] = "Delta between the reports"
+                start_col = chr(ord(start_col) + inc_x)
+                start_row = start_y
+                inc_x = len(df1.columns) + 3
+                sheet[f"{start_col}{start_row - 1}"] = "Differences between Vizuals"
 
-                col_ = start_column
+                col_ = start_col
                 row_ = start_row
                 is_time_col = False
                 i = 0
                 j = 0
-                for val in sheets[x][6].columns:
+                for val in d.columns:
                     sheet[f'{col_}{row_}'] = "Delta " + val
                     col_ = chr(ord(col_) + 1)
                 row_ += 1
-                for idx, row in sheets[x][6].iterrows():
+                for idx, row in d.iterrows():
                     j = 0
-                    col_ = start_column
+                    col_ = start_col
                     for cell in row:
                         sheet[f'{col_}{row_}'] = cell
-                        sheet[f'{col_}{row_}'].fill = PatternFill(start_color=sheets[x][7][i, j], end_color=sheets[x][7][i, j], fill_type='solid')
+                        sheet[f'{col_}{row_}'].fill = PatternFill(start_color=d_np[i, j], end_color=d_np[i, j], fill_type='solid')
                         j += 1
                         col_ = chr(ord(col_) + 1)
                     row_ += 1
                     i += 1
 
-                sheet[f"{start_column}{row_ + 2}"] = "Delta Number of rows"
-                sheet[f"{start_column}{row_ + 4}"] = "Delta Number of columns"
-                sheet[f"{start_column}{row_ + 3}"] = sheets[x][8]["Number of rows"][0]
-                sheet[f"{start_column}{row_ + 5}"] = sheets[x][8]["Number of columns"][0]
-                sheet[f"{start_column}{row_ + 3}"].fill = PatternFill(start_color=sheets[x][9]["Number of rows"][0], end_color=sheets[x][9]["Number of rows"][0], fill_type='solid')
-                sheet[f"{start_column}{row_ + 5}"].fill = PatternFill(start_color=sheets[x][9]["Number of columns"][0], end_color=sheets[x][9]["Number of columns"][0], fill_type='solid')
 
+                sheet[f"{start_col}{start_y + inc_y}"] = "Delta Number of rows"
+                sheet[f"{start_col}{start_y + inc_y + 2}"] = "Delta Number of columns"
+                sheet[f"{start_col}{start_y + inc_y + 1}"] = abs(nr1 - nr2)
+                sheet[f"{start_col}{start_y + inc_y + 3}"] = abs(nc1 - nc2)
                 
+                sheet[f"{start_col}{start_y + inc_y + 1}"].fill = PatternFill(start_color=col1, end_color=col1, fill_type='solid')
+                sheet[f"{start_col}{start_y + inc_y + 3}"].fill = PatternFill(start_color=col2, end_color=col2, fill_type='solid')
 
-        sheet_to_delete = workbook['Sheet']
+                start_y += inc_y + 7
 
-        # Delete the sheet
-        workbook.remove(sheet_to_delete)
-        workbook.save('./predictions/comparisonReport.xlsx')
+        sheet = workbook['Sheet']
+        sheet.title = "Overview"
+
+        start_row = 2  
+        start_column = 'A'  
+        sheet["A1"] = "Overview"
+        df_hyper = pd.DataFrame(dict_hyperlink, columns=dict_hyperlink.keys()).to_numpy()
+        df_over = pd.DataFrame(dict_overview, columns=dict_overview.keys())
+        df_over_np = pd.DataFrame(dict_overview_col, columns=dict_overview_col.keys()).to_numpy()
+        col_ = start_column
+        row_ = start_row
+        is_time_col = False
+        i = 0
+        j = 0
+        j1 = 0
+        for val in df_over.columns:
+            sheet[f'{col_}{row_}'] = val
+            col_ = chr(ord(col_) + 1)
+        row_ += 1
+        for idx, row in df_over.iterrows():
+            is_time_col = 0
+            j = 0
+            j1 = 0
+            col_ = start_column
+            for cell in row:
+                if is_time_col == 1:
+                    sheet[f'{col_}{row_}'] = cell
+                    sheet[f'{col_}{row_}'].hyperlink = df_hyper[i, j]
+                    j1 += 1
+                elif is_time_col == 2:
+                    sheet[f'{col_}{row_}'].fill = PatternFill(start_color=df_over_np[i, j], end_color=df_over_np[i, j], fill_type='solid')
+                    sheet[f'{col_}{row_}'] = cell
+                    j += 1
+                else:
+                    sheet[f'{col_}{row_}'] = cell
+                
+                col_ = chr(ord(col_) + 1)
+                is_time_col += 1
+            row_ += 1
+            i += 1
+        workbook.save(f'./{self.data_path}/comparisonReport.xlsx')
+
+        return "SUCCESSFULY CREATED REPORT"
+
+
+
+
+
+
 
