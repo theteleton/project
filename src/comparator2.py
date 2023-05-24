@@ -4,6 +4,8 @@ import math
 import openpyxl
 import os
 from openpyxl.styles import PatternFill
+#from openpyxl.drawing.image import Hyperlink
+from openpyxl.worksheet.hyperlink import Hyperlink
 
 class ComparatorPowerBI:
     def __init__(self, data_path):
@@ -49,8 +51,7 @@ class ComparatorPowerBI:
 
         rows1 = []
         rows2 = []
-        print(df1)
-        print(df2)
+
         while cnt1 < len(df1) and cnt2 < len(df2):
             best_i = -1
             best_j = -1
@@ -240,11 +241,22 @@ class ComparatorPowerBI:
 
         viz1 = sorted(viz1)
         viz2 = sorted(viz2)
+        dict_overview = {}
+        dict_overview_col = {}
+        dict_hyperlink = {}
+        dict_overview['Page'] = []
+        dict_overview['Visual'] = []
+        dict_overview['Status'] = []
+        dict_hyperlink['Visual'] = []
+        dict_overview_col['Status'] = []
         workbook = openpyxl.Workbook()
         for (page1, page2) in zip(viz1, viz2):
             if len(os.listdir(f"{self.data_path}/Report1/{page1}")) != len(os.listdir(f"{self.data_path}/Report2/{page2}")):
                 print("THESE ARE DIFFERENT REPORTS")
                 return
+            
+
+            
             sheet = workbook.create_sheet(title=".".join(page1.split(".")[1:]))
             list_df1, list_df2, list_n_rows1, list_n_rows2, list_n_cols1, list_n_cols2, list_deltas, list_deltas_np, names1, names2 = self.compare_pages(f"{self.data_path}/Report1/{page1}", f"{self.data_path}/Report2/{page2}")
             
@@ -256,15 +268,34 @@ class ComparatorPowerBI:
 
             sheet["A1"] = f"Comparison of page {sheet.title}"
             sheet["A2"] = "Report1"
-            sheet[f"{chr(ord('A') + inc_x)}2"] = "Report2"
+
+            sheet[f"{chr(ord('A') + len(list_df1[0].columns) + 3)}2"] = "Report2"
             
             for (df1, df2, nr1, nr2, nc1, nc2, d, d_np, n1, n2) in zip(list_df1, list_df2, list_n_rows1, list_n_rows2, list_n_cols1, list_n_cols2, list_deltas, list_deltas_np, names1, names2):
-                sheet["A3"] = ".".join(n1.split(".")[1:])
-                #print("cole:", chr(ord('A') + int(len(df1)) + 3))
-                sheet[f"{chr(ord('A') + int(len(df1.columns)) + 3)}3"] = ".".join(n2.split(".")[1:])
+                col1 = "FF0000"
+                if nr1 == nr2:
+                    col1 = "00FF00"
+                col2 = "FF0000"
+                if nc1 == nc2:
+                    col2 = "00FF00"
+                dict_overview['Visual'].append(".".join(n1.split(".")[1:]))
+                
+                dict_overview['Page'].append(sheet.title)
+                lst = np.unique(np.concatenate([np.unique(d_np), np.unique(np.array([col1, col2]))]))
+                if len(lst) == 1 and lst[0] == "00FF00":
+                    dict_overview["Status"].append("Match")
+                    dict_overview_col["Status"].append("00FF00")
+                else:
+                    dict_overview["Status"].append("Not Match")
+                    dict_overview_col["Status"].append("FF0000")
+
+                
+                
 
                 start_row = start_y
                 start_col = start_x
+                sheet[f"{start_col}{start_row - 1}"] = ".".join(n1.split(".")[1:])
+                dict_hyperlink['Visual'].append(f'comparisonReport.xlsx#{sheet.title}!{start_col}{start_row - 1}')
                 inc_y = max(len(df1), len(df2)) + 3
                 inc_x = len(df1.columns) + 3
                 col_ = start_col
@@ -287,13 +318,13 @@ class ComparatorPowerBI:
 
                 start_col = chr(ord(start_col) + inc_x)
                 start_row = start_y
+                sheet[f"{start_col}{start_row - 1}"] = ".".join(n2.split(".")[1:])
                 inc_x = len(df2.columns) + 3
 
                 col_ = start_col
                 row_ = start_row
-                print("Pocetni:", col_, row_)
+                
                 for val in df2.columns:
-                    print(col_, row_)
                     sheet[f'{col_}{row_}'] = val
                     col_ = chr(ord(col_) + 1)
                 row_ += 1
@@ -339,17 +370,52 @@ class ComparatorPowerBI:
                 sheet[f"{start_col}{start_y + inc_y + 2}"] = "Delta Number of columns"
                 sheet[f"{start_col}{start_y + inc_y + 1}"] = abs(nr1 - nr2)
                 sheet[f"{start_col}{start_y + inc_y + 3}"] = abs(nc1 - nc2)
-                col1 = "FF0000"
-                if nr1 == nr2:
-                    col1 = "00FF00"
-                col2 = "FF0000"
-                if nc1 == nc2:
-                    col2 = "00FF00"
+                
                 sheet[f"{start_col}{start_y + inc_y + 1}"].fill = PatternFill(start_color=col1, end_color=col1, fill_type='solid')
                 sheet[f"{start_col}{start_y + inc_y + 3}"].fill = PatternFill(start_color=col2, end_color=col2, fill_type='solid')
 
                 start_y += inc_y + 7
 
+        sheet = workbook['Sheet']
+        sheet.title = "Overview"
+
+        start_row = 2  
+        start_column = 'A'  
+        sheet["A1"] = "Overview"
+        df_hyper = pd.DataFrame(dict_hyperlink, columns=dict_hyperlink.keys()).to_numpy()
+        df_over = pd.DataFrame(dict_overview, columns=dict_overview.keys())
+        df_over_np = pd.DataFrame(dict_overview_col, columns=dict_overview_col.keys()).to_numpy()
+        col_ = start_column
+        row_ = start_row
+        is_time_col = False
+        i = 0
+        j = 0
+        j1 = 0
+        for val in df_over.columns:
+            sheet[f'{col_}{row_}'] = val
+            col_ = chr(ord(col_) + 1)
+        row_ += 1
+        for idx, row in df_over.iterrows():
+            is_time_col = 0
+            j = 0
+            j1 = 0
+            col_ = start_column
+            for cell in row:
+                sheet[f'{col_}{row_}'] = cell
+                
+                if is_time_col == 2:
+                    sheet[f'{col_}{row_}'].fill = PatternFill(start_color=df_over_np[i, j], end_color=df_over_np[i, j], fill_type='solid')
+                    j += 1
+                if is_time_col == 1:
+                    sheet[f'{col_}{row_}'].hyperlink = df_hyper[i, j]
+                    sheet[f'{col_}{row_}'].style = "Hyperlink"
+                    #sheet[f'{col_}{row_}'].hyperlink.location = df_hyper[i, j]
+                    #sheet[f'{col_}{row_}'].hyperlink.display= df_hyper[i, j]
+                    j1 += 1
+                col_ = chr(ord(col_) + 1)
+                is_time_col += 1
+            row_ += 1
+            i += 1
         workbook.save(f'./{self.data_path}/comparisonReport.xlsx')
 
         return "SUCCESSFULY CREATED REPORT"
