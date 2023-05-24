@@ -295,7 +295,7 @@ class ComparatorPowerBI:
                 start_row = start_y
                 start_col = start_x
                 sheet[f"{start_col}{start_row - 1}"] = ".".join(n1.split(".")[1:])
-                dict_hyperlink['Visual'].append(f'comparisonReport.xlsx#{sheet.title}!{start_col}{start_row - 1}')
+                dict_hyperlink['Visual'].append(f"#\'{sheet.title}\'!{start_col}{start_row - 1}")
                 inc_y = max(len(df1), len(df2)) + 3
                 inc_x = len(df1.columns) + 3
                 col_ = start_col
@@ -401,17 +401,19 @@ class ComparatorPowerBI:
             j1 = 0
             col_ = start_column
             for cell in row:
-                sheet[f'{col_}{row_}'] = cell
-                
-                if is_time_col == 2:
-                    sheet[f'{col_}{row_}'].fill = PatternFill(start_color=df_over_np[i, j], end_color=df_over_np[i, j], fill_type='solid')
-                    j += 1
                 if is_time_col == 1:
+                    print(df_hyper[i, j])
+                    #sheet[f'{col_}{row_}'].value = f'=HYPERLINK({df_hyper[i, j]}, {cell})'
+                    sheet[f'{col_}{row_}'] = cell
                     sheet[f'{col_}{row_}'].hyperlink = df_hyper[i, j]
-                    sheet[f'{col_}{row_}'].style = "Hyperlink"
-                    #sheet[f'{col_}{row_}'].hyperlink.location = df_hyper[i, j]
-                    #sheet[f'{col_}{row_}'].hyperlink.display= df_hyper[i, j]
                     j1 += 1
+                elif is_time_col == 2:
+                    sheet[f'{col_}{row_}'].fill = PatternFill(start_color=df_over_np[i, j], end_color=df_over_np[i, j], fill_type='solid')
+                    sheet[f'{col_}{row_}'] = cell
+                    j += 1
+                else:
+                    sheet[f'{col_}{row_}'] = cell
+                
                 col_ = chr(ord(col_) + 1)
                 is_time_col += 1
             row_ += 1
