@@ -20,8 +20,8 @@ There are several subfolders in the repository:
 * the journal folder (`/journal`),
 * the interim report folder (`/interim_report`),
 * the final report folder (`/final_report`),
-* and the presentation folder (`/presentation`).
-
+* and the presentation folder (`/presentation`).  
+    
 ### The source folder ###
 
 All your source code should go into this folder. How you structure things (e.g. via subfolders) inside there is completely up to you.
