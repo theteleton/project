@@ -19,7 +19,7 @@
 * 25. (2h): Meeting with In516ht company and Erik.
 * 26. (4h): Reserach to find a way to automate the process, and start writing some code.
 * 29. (8h): I just reimplemented from the jupyter notebook the basic comparisons. I will get them better after the automation process.
-## May 2023 (89h)
+## May 2023 (93h)
 * 1. (2h): Playing with options from Power BI, data into matrix.
 * 2. (2h): Playing with options from Power BI.
 * 3. (5h): Trying to connect with the API, and get reports.
@@ -41,5 +41,6 @@
 * 22. (12h): Meeting with Erik and Insight company, finding better way to automate with image segmentation, implementing that, testing that, re-implementing that. I am almost done with it.
 * 23. (8h): Reimplement the comparator, tested the comparator.
 * 24. (2h): Polishing the commits, started to write the instructions and added the hyperlink.
-* 24. (7h): Testing the Comparator, writing the README for usage and project explanation.
-## Total: (127h)
+* 24. (8h): Testing the Comparator, writing the README for usage and project explanation.
+* 25. (3h): Trying to use Canny edge detector for image segmentation.
+## Total: (131h)
