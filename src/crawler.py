@@ -91,7 +91,8 @@ class Crawler:
         pages = driver.find_elements_by_css_selector('[data-testid="pages-navigation-list-items"]')
         if len(pages) == 0:
             pages = ["First_(unnamed)_page"]
-
+        cur_x = 0
+        cur_y = 0
         total = 0
         last_x = 0
         last_y = 0
@@ -115,6 +116,7 @@ class Crawler:
                 img_proces = ImageProcessing()
                 list_of_vizuals = img_proces.preprocess(f"{self.screenshots_path}/screenshot{i}.png")
                 list_of_vizuals = sorted(list_of_vizuals)
+                #print(list_of_vizuals)
                 print(f"THERE ARE {len(list_of_vizuals)} VIZUALS FOUND ON PAGE {curr_folder.split('/')[-1]}")
 
                 x_start = last_x
@@ -150,6 +152,7 @@ class Crawler:
                 img_proces = ImageProcessing()
                 list_of_vizuals = img_proces.preprocess(f"{self.screenshots_path}/screenshot{i}.png")
                 list_of_vizuals = sorted(list_of_vizuals)
+                
                 print(f"THERE ARE {len(list_of_vizuals)} VIZUALS FOUND ON PAGE {curr_folder.split('/')[-1]}")
 
                 pos = []
@@ -162,22 +165,26 @@ class Crawler:
                     y_start = y_new        
                 
             n = len(pos)
-            
+            cur_x = 0
+            cur_y = 0
             for idx in range(n):
-                total += 1
+                
                 
                 (x, y, w, h) = pos[idx]
-
+                #print(x, y, w, h)
                 
                 try:
-                    
                     actions = ActionChains(driver)
                     actions.move_by_offset(x, y).click().perform()
                     time.sleep(2)
+                    cur_x += x
+                    cur_y += y
+                    #print("X, Y", cur_x, " ", cur_y)
                     driver.find_element_by_xpath('//*[@id="5"]').click()
                     time.sleep(5)
                     driver.find_element_by_css_selector("pbi-radio-group > span:nth-child(2)").click()
                     time.sleep(3)
+                    total += 1
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-content/div[3]/pbi-dropdown/button').click()
                     time.sleep(6)
                     button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div")
@@ -206,12 +213,16 @@ class Crawler:
 
                 try:
                     actions = ActionChains(driver)
-                    actions.move_by_offset(0,  -7).click().perform()
+                    actions.move_by_offset(0,  -10).click().perform()
                     time.sleep(2)
+                    cur_x += 0
+                    cur_y += -10
+                    #print("X, Y", cur_x, " ", cur_y)
                     driver.find_element_by_xpath('//*[@id="5"]').click()
                     time.sleep(5)
                     driver.find_element_by_css_selector("pbi-radio-group > span:nth-child(2)").click()
                     time.sleep(3)
+                    total += 1
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-content/div[3]/pbi-dropdown/button').click()
                     time.sleep(6)
                     button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div")
@@ -224,6 +235,9 @@ class Crawler:
                     actions = ActionChains(driver)
                     actions.move_by_offset(0,  10).click().perform()
                     time.sleep(2)
+                    cur_x += 0
+                    cur_y += 10
+                    #print("X, Y", cur_x, " ", cur_y)
                     source_dir = self.downloads_path
                     destination_dir = curr_folder
                     files = os.listdir(source_dir)
@@ -243,15 +257,22 @@ class Crawler:
                 try:
 
                     actions = ActionChains(driver)
-                    actions.move_by_offset(0, 10).click().perform()
+                    actions.move_by_offset(0, 13).click().perform()
                     time.sleep(2)
+                    cur_x += 0
+                    cur_y += 13
+                    #print("X, Y", cur_x, " ", cur_y)
                     actions = ActionChains(driver)
                     actions.move_by_offset(0, h).click().perform()
                     time.sleep(2)
+                    cur_x += 0
+                    cur_y += h
+                    #print("X, Y", cur_x, " ", cur_y)
                     driver.find_element_by_xpath('//*[@id="5"]').click()
                     time.sleep(5)
                     driver.find_element_by_css_selector("pbi-radio-group > span:nth-child(2)").click()
                     time.sleep(3)
+                    total += 1
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-content/div[3]/pbi-dropdown/button').click()
                     time.sleep(6)
                     button = driver.find_element_by_css_selector("pbi-dropdown-item:nth-child(3) > div")
@@ -262,8 +283,11 @@ class Crawler:
                     driver.find_element_by_xpath(f'//*[@id="mat-dialog-{total}"]/export-data-dialog/mat-dialog-actions/button[1]').click()
                     time.sleep(10)
                     actions = ActionChains(driver)
-                    actions.move_by_offset(0, -h-10).click().perform()
+                    actions.move_by_offset(0, -h-3).click().perform()
                     time.sleep(2)
+                    cur_x += 0
+                    cur_y += -h-6
+                    #print("X, Y", cur_x, " ", cur_y)
                     source_dir = self.downloads_path
                     destination_dir = curr_folder
                     files = os.listdir(source_dir)
@@ -278,7 +302,12 @@ class Crawler:
                             os.rename(destination_file, os.path.join(destination_dir, f"{idx}.{file}"))
                     continue
                 except:
-                    pass
+                    actions = ActionChains(driver)
+                    actions.move_by_offset(0, -h-3).click().perform()
+                    time.sleep(2)
+                    cur_x += 0
+                    cur_y += -h-6
+                    #print("X, Y", cur_x, " ", cur_y)
 
         time.sleep(10)
         driver.quit()

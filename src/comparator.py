@@ -232,7 +232,7 @@ class ComparatorPowerBI:
         names2 = []
 
         for (df1_name, df2_name) in zip(l_df1, l_df2):
-            print(f"COMPARISON OF VIZUAL {df1_name}")
+            print(f"COMPARISON OF VISUAL {df1_name}")
             df1 = pd.read_csv(f"{path1}/{df1_name}")
             df2 = pd.read_csv(f"{path2}/{df2_name}")
             names1.append(df1_name[:-4])
@@ -359,7 +359,7 @@ class ComparatorPowerBI:
                 start_col = chr(ord(start_col) + inc_x)
                 start_row = start_y
                 inc_x = len(df1.columns) + 3
-                sheet[f"{start_col}{start_row - 1}"] = "Differences between Vizuals"
+                sheet[f"{start_col}{start_row - 1}"] = "Differences between Visuals"
 
                 col_ = start_col
                 row_ = start_row

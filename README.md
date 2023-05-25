@@ -1,9 +1,9 @@
-# Project Competition Comparison of Power BI reports
+# How to automatically compare two ![Power Bi](https://img.shields.io/badge/power_bi-F2C811?style=for-the-badge&logo=powerbi&logoColor=black) reports? 
 
-This is the repository for the project competition of comparisons of Power BI reports.
-## Instructions
+The PowerBI is one of the most popular software for creating and manipulating with reports, which can be used for many advanced statistical analyses, which can solve or more importantly show many problems related to our business. One type of problems that we want to find out about is the correctness of a migration of a database and,since the databases are usually too large for checking each value separately, a solution is proposed to generate two structurally identical PowerBI reports and compare them in order to find out about differences in the databases. 
 
-Here is the overall enviroment setup, any additional setup for the jupyter notebook will be added there.
+## Installation
+
 For this setup you need to have installed Anaconda (https://www.anaconda.com/products/distribution) and Git (https://git-scm.com/).
 
 ```
@@ -11,20 +11,23 @@ For this setup you need to have installed Anaconda (https://www.anaconda.com/pro
 
 cd your_favourite_directory
 git clone <this_repository>
-cd project-1-theteleton
-conda env create -f environment.yml
+cd project
+conda env create -f src/environment.yml
 
 # press y
 
 conda activate ids
-jupyter notebook
 ```
-Also if you want to just let your pc to run scripts all night using the screen software (https://www.gnu.org/software/screen/). They are also the same in the notebook but only for the validation purposes.
+## Usage
+Once you have installed the environment you can use the comparator with the following commands:
+```
+cd src
+python main.py --email <your_powerbi_email> --password <your_powerbi_password> --group_id1 <group_or_workspace_id_of_the_first_report> --group_id2 <group_or_workspace_id_of_the_first_report> --report_id1 <first_report_id> --report_id2 <second_report_id> --data_folder <location_of_your_favourite_folder> 
+```
+After you start the comparator, if your account needs two-factor authentication to be logged in, the comparator will ask you to insert you 2FA authenticator. The comparison will be created in the ```<data_folder>``` that you chosed.  
 
-```
-# These lines must follow the previous ones, after getting into repository's directory and activating the enviroment.
-# create new screen
-screen -S <your_screen_name>
-python ./scripts/<the script you want to run>
-# CTRL A + CTRL D
-# Let the laptop work
+**WARNING! If the comparator did not run successfuly, it is most probably due to a window that is appearing from powerbi for whether do you like this app or not. This is for first time users of Power BI application, it will be showed only one time.**
+## Technologies used
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)![Selenium](https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white)![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white)
+![Power Bi](https://img.shields.io/badge/power_bi-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)![Microsoft Excel](https://img.shields.io/badge/Microsoft_Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
