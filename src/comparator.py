@@ -205,7 +205,11 @@ class ComparatorPowerBI:
                                     dict_color[x].append('00FF00')
                                 else:
                                     dict_color[x].append('FF0000')
-                                dict_delta[x].append(str(diff))
+                                if math.isnan(diff):
+                                    dict_delta[x].append("One of the values is not a number.")
+                                else:
+                                    dict_delta[x].append(str(diff))
+                                
                     else:
                         dict_delta[x].append("Different number of rows!")
                         dict_color[x].append("FF0000")
