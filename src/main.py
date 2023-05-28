@@ -47,6 +47,8 @@ if __name__ == "__main__":
     print("START OF THE SCRAPING OF THE SECOND REPORT")
     crawl = Crawler(username=email, password=password, group_id=group_id2, report_id=report_id2, data_path=f"{args.data_folder}/Report2", screenshots_path=f"{args.data_folder}/screenshots", downloads_path=".")
     crawl.crawl()
+
+    
     
     
     print("START OF THE COMPARISON")

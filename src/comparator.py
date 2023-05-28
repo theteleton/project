@@ -189,13 +189,23 @@ class ComparatorPowerBI:
 
                         if is_currency1 != is_currency2:
                             dict_color[x].append('FF0000')
-                            dict_delta[x].append(str(diff) + " " + "(different currencies)")
+                            dict_delta[x].append(str(diff) + " " + "(different or wrong currencies)")
                         else:
-                            if diff == 0:
-                                dict_color[x].append('00FF00')
-                            else:
+                            
+                            is_in = False
+                            for cur in ['¥', '$', '€', '£']:
+                                if is_currency1 == cur:
+                                    is_in = True
+                                    break
+                            if is_in == False and is_currency1 != "":
                                 dict_color[x].append('FF0000')
-                            dict_delta[x].append(str(diff))
+                                dict_delta[x].append('this is not a currency')
+                            else:
+                                if diff == 0:
+                                    dict_color[x].append('00FF00')
+                                else:
+                                    dict_color[x].append('FF0000')
+                                dict_delta[x].append(str(diff))
                     else:
                         dict_delta[x].append("Different number of rows!")
                         dict_color[x].append("FF0000")

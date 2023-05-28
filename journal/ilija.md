@@ -19,7 +19,7 @@
 * 25. (2h): Meeting with In516ht company and Erik.
 * 26. (4h): Reserach to find a way to automate the process, and start writing some code.
 * 29. (8h): I just reimplemented from the jupyter notebook the basic comparisons. I will get them better after the automation process.
-## May 2023 (89h)
+## May 2023 (112)
 * 1. (2h): Playing with options from Power BI, data into matrix.
 * 2. (2h): Playing with options from Power BI.
 * 3. (5h): Trying to connect with the API, and get reports.
@@ -33,13 +33,18 @@
 * 11. (8h): The crawler thing worked, now I can go to the fun part, finally.
 * 12. (2h): I optimized a little bit the crawler, it is slow but at least it is working so I will leave it for know.
 * 12. (1h): Making a plan for adding additional feature and closing up everythig for now.
-* 12. (2h): Working on the comparator
+* 12. (2h): Working on the comparator, starting with rearranging algorithm
 * 15. (1h): Working on the plan, set up meetings and find some cases.
-* 19. (3h): Working on the comparator
-* 20. (5h): Working on the comparator and writing to a excel file.
+* 19. (3h): Working on the comparator, added the comparison procedure
+* 20. (5h): Working on the comparator (finishing) and writing to a excel file.
 * 20. (7h): Testing the comparator and make predictions for the four cases given by the devlopers from insight.
 * 22. (12h): Meeting with Erik and Insight company, finding better way to automate with image segmentation, implementing that, testing that, re-implementing that. I am almost done with it.
 * 23. (8h): Reimplement the comparator, tested the comparator.
 * 24. (2h): Polishing the commits, started to write the instructions and added the hyperlink.
-* 24. (7h): Testing the Comparator, writing the README for usage and project explanation.
-## Total: (127h)
+* 24. (8h): Testing the Comparator, writing the README for usage and project explanation.
+* 25. (3h): Trying to use Canny edge detector for image segmentation.
+* 25. (3h): Writing the report (abstract, introduction, methodology).
+* 26. (4h): Writing the report (conclusion, re-writting something).
+* 27. (6h): Writing the report (polished additionally, rearrangement), and prepare it for Windows.
+* 28. (6h): Preparation for Windows failed, report finished and presentation prepared, and final tests conducted.
+## Total: (150)
